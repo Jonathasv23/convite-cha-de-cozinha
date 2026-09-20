@@ -481,7 +481,6 @@
           </div>
           <div class="palette-info">
             <strong class="palette-name">${escaparHtml(cor.nome)}</strong>
-            <span class="palette-desc">${escaparHtml(cor.descricao)}</span>
           </div>
         </div>
       `).join('');

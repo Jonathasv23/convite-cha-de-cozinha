@@ -227,7 +227,6 @@ export class ConviteView {
         </div>
         <div class="palette-info">
           <strong class="palette-name">${this._escaparHtml(cor.nome)}</strong>
-          <span class="palette-desc">${this._escaparHtml(cor.descricao)}</span>
         </div>
       </div>
     `).join('');
