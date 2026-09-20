@@ -101,7 +101,7 @@ export class ConviteController {
     const elDias = document.getElementById('countdown-dias');
     if (!elDias) return; // Se o bloco de contagem foi removido, não inicia o loop
 
-    const dataEvento = this.configuracoes.evento?.dataHoraISO || '2026-10-24T16:00:00';
+    const dataEvento = this.configuracoes.evento?.dataHoraISO || '2026-10-10T14:30:00';
 
     // Executa imediatamente na inicialização
     ConviteView.atualizarContagem(dataEvento);

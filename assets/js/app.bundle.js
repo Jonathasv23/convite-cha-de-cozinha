@@ -24,8 +24,8 @@
       noivos: 'Hevelyn & Jonathas',
       titulo: 'Chá de Cozinha de Hevelyn & Jonathas',
       subtitulo: 'Um momento de celebração e carinho para preparar o novo lar',
-      dataHoraISO: '2026-10-24T16:00:00',
-      dataHoraFormatada: 'Sábado, 24 de Outubro de 2026 às 16h00',
+      dataHoraISO: '2026-10-10T14:30:00',
+      dataHoraFormatada: 'Sábado, 10 de Outubro de 2026 às 14:30',
       local: 'Espaço Jardim das Camélias',
       enderecoCompleto: 'Rua das Flores, 120 - Jardim Primavera, São Paulo - SP',
       googleMapsUrl: 'https://www.google.com/maps/search/?api=1&query=Espa%C3%A7o+Jardim+das+Cam%C3%A9lias+Rua+das+Flores+120',
@@ -38,7 +38,7 @@
       { nome: 'Linho Suave', hex: '#D1C7B7', descricao: 'Linho rústico delicado' }
     ],
     fallbackDinamicos: {
-      dataLimiteConfirmacao: '2026-10-18T23:59:59',
+      dataLimiteConfirmacao: '2026-10-04T23:59:59',
       chavePix: 'hevelyn.jonathas.cha@email.com',
       mensagemBoasVindas: 'É com imensa alegria que convidamos você para compartilhar este momento tão especial conosco. Venha celebrar o amor e o início da nossa nova história!'
     }
@@ -124,7 +124,7 @@
   }
 
   function createGoogleCalendarUrl(ev) {
-    const dataInicio = new Date(ev.dataHoraISO || '2026-10-24T16:00:00');
+    const dataInicio = new Date(ev.dataHoraISO || '2026-10-10T14:30:00');
     const dataFim = new Date(dataInicio.getTime() + 4 * 60 * 60 * 1000);
     const startUtc = formatUtcCalendarString(dataInicio);
     const endUtc = formatUtcCalendarString(dataFim);
@@ -135,7 +135,7 @@
   }
 
   function downloadIcsFile(ev, nomeArquivo = 'cha_de_cozinha.ics') {
-    const dataInicio = new Date(ev.dataHoraISO || '2026-10-24T16:00:00');
+    const dataInicio = new Date(ev.dataHoraISO || '2026-10-10T14:30:00');
     const dataFim = new Date(dataInicio.getTime() + 4 * 60 * 60 * 1000);
     const agora = new Date();
     const startUtc = formatUtcCalendarString(dataInicio);
@@ -403,6 +403,17 @@
                 <span class="divider-line"></span>
               </div>
               <p class="hero-message">${escaparHtml(mensagemBoasVindas)}</p>
+              ${evento.dataHoraFormatada ? `
+                <div class="hero-date-badge">
+                  <svg class="hero-date-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                    <line x1="16" y1="2" x2="16" y2="6"></line>
+                    <line x1="8" y1="2" x2="8" y2="6"></line>
+                    <line x1="3" y1="10" x2="21" y2="10"></line>
+                  </svg>
+                  <span class="hero-date-text">${escaparHtml(evento.dataHoraFormatada)}</span>
+                </div>
+              ` : ''}
             </div>
           </div>
         </div>

@@ -20,14 +20,14 @@
       noivos: 'Hevelyn & Jonathas',
       titulo: 'Chá de Cozinha de Hevelyn & Jonathas',
       subtitulo: 'Um momento de celebração e carinho para preparar o novo lar',
-      dataHoraISO: '2026-10-24T16:00:00',
-      dataHoraFormatada: 'Sábado, 24 de Outubro de 2026 às 16h00',
+      dataHoraISO: '2026-10-10T14:30:00',
+      dataHoraFormatada: 'Sábado, 10 de Outubro de 2026 às 14:30',
       local: 'Espaço Jardim das Camélias',
       enderecoCompleto: 'Rua das Flores, 120 - Jardim Primavera, São Paulo - SP',
       googleMapsUrl: 'https://www.google.com/maps/search/?api=1&query=Espa%C3%A7o+Jardim+das+Cam%C3%A9lias+Rua+das+Flores+120',
     },
     fallbackDinamicos: {
-      dataLimiteConfirmacao: '2026-10-18T23:59:59',
+      dataLimiteConfirmacao: '2026-10-04T23:59:59',
       chavePix: 'hevelyn.jonathas.cha@email.com',
       mensagemBoasVindas: 'É com imensa alegria que convidamos você para compartilhar este momento tão especial conosco. Venha celebrar o amor e o início da nossa nova história!'
     },

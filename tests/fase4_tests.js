@@ -104,8 +104,8 @@ test('2. ConviteView: Renderização do Hero Card com nomes oficiais (Hevelyn & 
   const dados = {
     evento: {
       noivos: 'Hevelyn & Jonathas',
-      dataHoraISO: '2026-10-24T16:00:00',
-      dataHoraFormatada: '24 de Outubro de 2026 às 16:00',
+      dataHoraISO: '2026-10-10T14:30:00',
+      dataHoraFormatada: 'Sábado, 10 de Outubro de 2026 às 14:30',
       local: 'Espaço Jardim das Camélias',
       enderecoCompleto: 'Rua das Flores, 120',
       googleMapsUrl: 'https://maps.google.com/?q=Espaco'
@@ -118,8 +118,9 @@ test('2. ConviteView: Renderização do Hero Card com nomes oficiais (Hevelyn & 
   assert.ok(container.innerHTML.includes('Hevelyn &amp; Jonathas'), 'Deve conter os nomes oficiais no HTML');
   assert.ok(container.innerHTML.includes('H &amp; J'), 'Monograma botânico deve conter as iniciais H & J');
   assert.ok(container.innerHTML.includes('Sejam todos muito bem-vindos!'), 'Deve exibir a mensagem de boas-vindas');
+  assert.ok(container.innerHTML.includes('10 de Outubro de 2026 às 14:30'), 'Deve exibir o badge com a data oficial do chá');
   assert.ok(container.innerHTML.includes('CHÁ DE COZINHA'), 'Deve exibir a tag de cabeçalho do evento');
-  console.log('  [PASSOU] Hero Card renderiza com monograma botânico, nomes de Hevelyn & Jonathas e mensagem de acolhimento');
+  console.log('  [PASSOU] Hero Card renderiza com monograma botânico, nomes de Hevelyn & Jonathas, mensagem e data do chá');
 });
 
 test('3. ConviteView: Renderização da Vitrine de Paleta de Cores', () => {

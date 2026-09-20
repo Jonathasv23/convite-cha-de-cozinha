@@ -70,6 +70,17 @@ export class ConviteView {
               <span class="divider-line"></span>
             </div>
             <p class="hero-message">${this._escaparHtml(mensagemBoasVindas)}</p>
+            ${evento.dataHoraFormatada ? `
+              <div class="hero-date-badge">
+                <svg class="hero-date-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                  <line x1="16" y1="2" x2="16" y2="6"></line>
+                  <line x1="8" y1="2" x2="8" y2="6"></line>
+                  <line x1="3" y1="10" x2="21" y2="10"></line>
+                </svg>
+                <span class="hero-date-text">${this._escaparHtml(evento.dataHoraFormatada)}</span>
+              </div>
+            ` : ''}
           </div>
         </div>
       </div>
