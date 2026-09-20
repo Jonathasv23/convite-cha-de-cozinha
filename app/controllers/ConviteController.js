@@ -69,12 +69,7 @@ export class ConviteController {
       });
     }
 
-    // 2. Vitrine da Paleta de Cores (posicionada diretamente após a mensagem do Hero Card)
-    if (paletteContainer) {
-      ConviteView.renderizarPaletaCores(paletteContainer, this.configuracoes.paletaCores);
-    }
-
-    // 4. Formulário de RSVP
+    // 2. Formulário de RSVP
     if (rsvpContainer) {
       const dataFormatada = this.configuracoes.dataLimiteConfirmacao
         ? formatarDataExtenso(this.configuracoes.dataLimiteConfirmacao)
@@ -85,6 +80,11 @@ export class ConviteController {
         dataLimiteFormatada: dataFormatada,
         presentes: this.presentesDisponiveis
       });
+    }
+
+    // 3. Vitrine da Paleta de Cores (posicionada após a confirmação de presença)
+    if (paletteContainer) {
+      ConviteView.renderizarPaletaCores(paletteContainer, this.configuracoes.paletaCores);
     }
   }
 
