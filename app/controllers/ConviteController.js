@@ -276,8 +276,14 @@ export class ConviteController {
 
 // Inicialização automática ao carregar a página index.html no navegador
 if (typeof window !== 'undefined' && typeof document !== 'undefined') {
-  document.addEventListener('DOMContentLoaded', () => {
+  const inicializar = () => {
     const controller = new ConviteController();
     controller.iniciar();
-  });
+  };
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', inicializar);
+  } else {
+    inicializar();
+  }
 }

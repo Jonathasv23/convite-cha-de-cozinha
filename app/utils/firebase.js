@@ -110,49 +110,49 @@ let onAuthStateChanged = null;
 
 // Carregamento dinâmico no navegador via CDN oficial do Firebase
 if (typeof window !== 'undefined') {
-  try {
-    const firebaseApp = await import('https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js');
-    const firestore = await import('https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js');
-    const firebaseAuth = await import('https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js');
+  if (isFirebaseConfigured()) {
+    try {
+      const firebaseApp = await import('https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js');
+      const firestore = await import('https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js');
+      const firebaseAuth = await import('https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js');
 
-    // Mapeamento dos métodos de Firestore
-    collection = firestore.collection;
-    doc = firestore.doc;
-    getDoc = firestore.getDoc;
-    getDocs = firestore.getDocs;
-    setDoc = firestore.setDoc;
-    updateDoc = firestore.updateDoc;
-    addDoc = firestore.addDoc;
-    deleteDoc = firestore.deleteDoc;
-    query = firestore.query;
-    where = firestore.where;
-    orderBy = firestore.orderBy;
-    limit = firestore.limit;
-    runTransaction = firestore.runTransaction;
-    serverTimestamp = firestore.serverTimestamp;
-    writeBatch = firestore.writeBatch;
-    Timestamp = firestore.Timestamp;
+      // Mapeamento dos métodos de Firestore
+      collection = firestore.collection;
+      doc = firestore.doc;
+      getDoc = firestore.getDoc;
+      getDocs = firestore.getDocs;
+      setDoc = firestore.setDoc;
+      updateDoc = firestore.updateDoc;
+      addDoc = firestore.addDoc;
+      deleteDoc = firestore.deleteDoc;
+      query = firestore.query;
+      where = firestore.where;
+      orderBy = firestore.orderBy;
+      limit = firestore.limit;
+      runTransaction = firestore.runTransaction;
+      serverTimestamp = firestore.serverTimestamp;
+      writeBatch = firestore.writeBatch;
+      Timestamp = firestore.Timestamp;
 
-    // Mapeamento dos métodos de Auth
-    signInWithEmailAndPassword = firebaseAuth.signInWithEmailAndPassword;
-    signOut = firebaseAuth.signOut;
-    onAuthStateChanged = firebaseAuth.onAuthStateChanged;
+      // Mapeamento dos métodos de Auth
+      signInWithEmailAndPassword = firebaseAuth.signInWithEmailAndPassword;
+      signOut = firebaseAuth.signOut;
+      onAuthStateChanged = firebaseAuth.onAuthStateChanged;
 
-    if (isFirebaseConfigured()) {
       appInstance = firebaseApp.initializeApp(config.firebaseConfig);
       dbInstance = firestore.getFirestore(appInstance);
       authInstance = firebaseAuth.getAuth(appInstance);
-    } else {
-      console.info(
-        '%c[Firebase]%c Executando em modo de demonstração local com credenciais padrão em config/config.js.',
-        'color: #55624d; font-weight: bold;',
-        'color: #444841;'
+    } catch (error) {
+      console.warn(
+        '[Firebase] Não foi possível carregar o SDK em nuvem via CDN. Modo de demonstração ativado.',
+        error
       );
     }
-  } catch (error) {
-    console.warn(
-      '[Firebase] Não foi possível carregar o SDK em nuvem via CDN. Modo de demonstração ativado.',
-      error
+  } else {
+    console.info(
+      '%c[Firebase]%c Executando em modo de demonstração local com dados em memória e localStorage.',
+      'color: #55624d; font-weight: bold;',
+      'color: #444841;'
     );
   }
 } else {

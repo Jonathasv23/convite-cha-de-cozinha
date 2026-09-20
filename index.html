@@ -56,7 +56,19 @@
   <!-- Container Global de Notificações Toast -->
   <div id="toast-container" class="toast-container" aria-live="polite" aria-atomic="true"></div>
 
-  <!-- Controlador Principal da Aplicação (Módulo ES6) -->
-  <script type="module" src="app/controllers/ConviteController.js"></script>
+  <!-- Controlador Modular ES6 (Padrão MVC para Servidores Estáticos e GitHub Pages) -->
+  <script type="module">
+    try {
+      const { ConviteController } = await import('./app/controllers/ConviteController.js');
+      window.__conviteIniciado = true;
+      const controller = new ConviteController();
+      controller.iniciar();
+    } catch (e) {
+      console.warn('Módulo ES6 não suportado diretamente neste protocolo. Utilizando carregamento autossuficiente.');
+    }
+  </script>
+
+  <!-- Script Autossuficiente de Compatibilidade (Garante funcionamento perfeito mesmo em duplo clique file:///) -->
+  <script src="assets/js/app.bundle.js" defer></script>
 </body>
 </html>
