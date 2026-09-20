@@ -31,11 +31,11 @@
       googleMapsUrl: 'https://www.google.com/maps/search/?api=1&query=Espa%C3%A7o+Jardim+das+Cam%C3%A9lias+Rua+das+Flores+120',
     },
     paletaCores: [
-      { nome: 'Verde Oliva', hex: '#3D4A36', descricao: 'Verde botânico nobre' },
-      { nome: 'Verde Sálvia', hex: '#8A9A80', descricao: 'Sálvia suave e acolhedora' },
-      { nome: 'Dourado Champanhe', hex: '#C5A880', descricao: 'Dourado champanhe sutil' },
-      { nome: 'Marfim Natural', hex: '#F8F7F2', descricao: 'Pergaminho marfim natural' },
-      { nome: 'Linho Suave', hex: '#D1C7B7', descricao: 'Linho rústico delicado' }
+      { nome: 'Branco', hex: '#FFFFFF', descricao: 'Luminoso, puro e atemporal' },
+      { nome: 'Preto', hex: '#1A1A1A', descricao: 'Moderno, marcante e sofisticado' },
+      { nome: 'Inox', hex: '#9DA3A6', background: 'linear-gradient(135deg, #B5B9BC 0%, #FFFFFF 30%, #9DA3A8 55%, #E2E5E8 85%, #8C9298 100%)', descricao: 'Aço escovado e contemporâneo' },
+      { nome: 'Cinza', hex: '#6B7075', descricao: 'Neutro nobre, versátil e equilibrado' },
+      { nome: 'Bege', hex: '#E8D5BF', descricao: 'Aconchegante, suave e natural' }
     ],
     fallbackDinamicos: {
       dataLimiteConfirmacao: '2026-10-04T23:59:59',
@@ -477,7 +477,7 @@
       const cards = paleta.map((cor) => `
         <div class="palette-card">
           <div class="palette-swatch-wrapper">
-            <div class="palette-swatch" style="background-color: ${cor.hex};"></div>
+            <div class="palette-swatch" style="background-color: ${cor.hex}; background: ${cor.background || cor.hex};"></div>
           </div>
           <div class="palette-info">
             <strong class="palette-name">${escaparHtml(cor.nome)}</strong>

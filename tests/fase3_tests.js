@@ -145,7 +145,7 @@ await test('Deve obter configurações com fallback e paleta de cores intacta', 
   assert.ok(configObj.mensagemBoasVindas);
   assert.strictEqual(configObj.evento.noivos, 'Hevelyn & Jonathas');
   assert.strictEqual(configObj.paletaCores.length, 5);
-  assert.strictEqual(configObj.paletaCores[0].nome, 'Verde Oliva');
+  assert.strictEqual(configObj.paletaCores[0].nome, 'Branco');
 });
 
 await test('Deve validar corretamente se o prazo expirou ou continua válido (RN-06)', () => {

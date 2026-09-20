@@ -79,9 +79,9 @@ class MockElement {
 }
 
 test('1. ConviteView: Cálculo da Contagem Regressiva Viva', () => {
-  // Simula data futura de 10 dias, 5 horas, 30 minutos a partir de agora
+  // Simula data futura de 10 dias, 5 horas, 30 minutos a partir de agora (com tolerância de milissegundo)
   const agora = Date.now();
-  const futuro = new Date(agora + (10 * 86400 + 5 * 3600 + 30 * 60) * 1000);
+  const futuro = new Date(agora + (10 * 86400 + 5 * 3600 + 30 * 60) * 1000 + 1000);
 
   const resultado = ConviteView.atualizarContagem(futuro);
 

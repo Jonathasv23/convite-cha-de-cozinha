@@ -21,11 +21,11 @@ export const config = {
 
   // Paleta de Cores Sugerida (docs/DESIGN.md)
   paletaCores: [
-    { nome: 'Verde Oliva', hex: '#3D4A36', descricao: 'Tom botânico nobre e acolhedor' },
-    { nome: 'Verde Sálvia', hex: '#8A9A80', descricao: 'Suavidade natural e leveza' },
-    { nome: 'Dourado Champanhe', hex: '#C5A880', descricao: 'Toque delicado e festivo' },
-    { nome: 'Marfim Natural', hex: '#F8F7F2', descricao: 'Clássico e aconchegante' },
-    { nome: 'Linho Suave', hex: '#D1C7B7', descricao: 'Elegância rústica e atemporal' }
+    { nome: 'Branco', hex: '#FFFFFF', descricao: 'Luminoso, puro e atemporal' },
+    { nome: 'Preto', hex: '#1A1A1A', descricao: 'Moderno, marcante e sofisticado' },
+    { nome: 'Inox', hex: '#9DA3A6', background: 'linear-gradient(135deg, #B5B9BC 0%, #FFFFFF 30%, #9DA3A8 55%, #E2E5E8 85%, #8C9298 100%)', descricao: 'Aço escovado e contemporâneo' },
+    { nome: 'Cinza', hex: '#6B7075', descricao: 'Neutro nobre, versátil e equilibrado' },
+    { nome: 'Bege', hex: '#E8D5BF', descricao: 'Aconchegante, suave e natural' }
   ],
 
   // Parâmetros Dinâmicos Padrão (utilizados como fallback caso o Firestore esteja inacessível)

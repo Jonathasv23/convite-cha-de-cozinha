@@ -223,7 +223,7 @@ export class ConviteView {
     const swatchesHtml = paleta.map((cor) => `
       <div class="palette-card">
         <div class="palette-swatch-wrapper">
-          <div class="palette-swatch" style="background-color: ${cor.hex};" aria-hidden="true"></div>
+          <div class="palette-swatch" style="background-color: ${cor.hex}; background: ${cor.background || cor.hex};" aria-hidden="true"></div>
         </div>
         <div class="palette-info">
           <strong class="palette-name">${this._escaparHtml(cor.nome)}</strong>
