@@ -5,7 +5,8 @@
   "type": "module",
   "scripts": {
     "migrate": "node database/migrations/run.js",
-    "migrate:dry": "node database/migrations/run.js --dry-run"
+    "migrate:dry": "node database/migrations/run.js --dry-run",
+    "test": "node tests/fase3_tests.js"
   },
   "private": true
 }

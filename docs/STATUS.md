@@ -2,19 +2,21 @@
 
 **Sistema:** Convite Digital e Lista de Presentes para Chá de Cozinha  
 **Identidade Visual:** *Botanical Heritage Atelier*  
-**Última Atualização:** 20/09/2026 - Conclusão da Fase 2 (Banco de Dados, Persistência, Regras de Segurança e Migrações)  
+**Última Atualização:** 20/09/2026 - Conclusão da Fase 3 (Camada de Modelos e Módulos Utilitários)  
 
 ---
 
 ## 1. Estado Atual do Projeto
 
-A camada de persistência e governança em nuvem foi implementada com absoluto sucesso na **Fase 2**:
-- As regras declarativas de segurança do Firestore (`database/firestore.rules`) foram consolidadas e validadas contra vazamento de dados de convidados, garantindo total conformidade com a LGPD (listagem de confirmações restrita ao admin, verificação de homônimos via busca pontual por chave e baixa atômica de presentes no fluxo público).
-- Os índices compostos de consulta foram consolidados em `database/firestore.indexes.json`.
-- O módulo de inicialização modular do Firebase Web SDK v10+ (`app/utils/firebase.js`) foi criado, importando via CDN oficial sem necessidade de bundlers e com suporte gracioso a modo de demonstração local.
-- O executor de migrações CLI (`database/migrations/run.js`) e os scripts versionados de schema inicial (`001_initial_schema.js`) e semente de catálogo com 20 presentes artesanais (`002_seed_presentes.js`) foram implementados com garantia de idempotência via coleção `_migrations` e testados com sucesso via Node.js.
+A camada de domínio e utilitários da arquitetura MVC client-side foi implementada e testada com 100% de sucesso na **Fase 3**:
+- `app/utils/logger.js`: Módulo de logging de erros operacionais (`_app_error_logs`) e eventos de segurança (`_app_sec_logs`) com limite FIFO de 50 registros e fallback seguro em memória.
+- `app/utils/calendar.js`: Gerador de URLs padronizadas para Google Agenda, gerador de arquivos iCalendar RFC 5545 (`.ics`) para Apple Calendar e Outlook, além de formatadores de data para português do Brasil.
+- `app/models/ConfiguracaoModel.js`: Gerenciamento do documento `configuracoes/geral`, verificação de expiração de prazo (`data_limite_confirmacao` - RN-06), fallback transparente para `config/config.js` e persistência de alterações da noiva.
+- `app/models/PresenteModel.js`: Listagem de presentes ativos com estoque (`quantidade_disponivel > 0` - RN-01), cadastro de itens com validação, reserva atômica via `runTransaction` prevenindo estoque negativo (RN-02), estorno/devolução de itens (+1) e soft delete.
+- `app/models/ConfirmacaoModel.js`: Normalização de nomes, verificação amigável de homônimos via busca pontual em conformidade estrita com a LGPD (RN-05), submissão de confirmações nas 3 modalidades (presente físico, PIX/surpresa e apenas presença), liberação de presentes com devolução ao inventário (RN-07) e consolidação em tempo real das métricas do dashboard (RN-08).
+- Todos os 21 testes unitários automatizados cobrindo a totalidade dos models e utilitários passaram com êxito (`npm test`).
 
-O projeto encontra-se perfeitamente estabilizado e pronto para a construção da camada de Modelos (MVC) na **Fase 3**.
+O projeto encontra-se perfeitamente estruturado e pronto para a construção do Módulo do Convite Digital Público (Visão do Convidado) na **Fase 4**.
 
 ---
 
@@ -24,7 +26,7 @@ O projeto encontra-se perfeitamente estabilizado e pronto para a construção da
 | :--- | :--- | :---: |
 | **Fase 1** | Infraestrutura, Estrutura Base, Design Tokens e Controle de Versão (Git/GitHub) | **Concluída** |
 | **Fase 2** | Banco de Dados, Persistência, Regras de Segurança e Migrações | **Concluída** |
-| **Fase 3** | Camada de Modelos (MVC) e Módulos Utilitários | *Pendente* |
+| **Fase 3** | Camada de Modelos (MVC) e Módulos Utilitários | **Concluída** |
 | **Fase 4** | Módulo do Convite Digital Público (Visão do Convidado) | *Pendente* |
 | **Fase 5** | Módulo do Painel Administrativo da Noiva | *Pendente* |
 | **Fase 6** | Relatórios, Exportações (CSV e Impressão/PDF) e Acabamentos Finais | *Pendente* |
@@ -62,11 +64,12 @@ O projeto encontra-se perfeitamente estabilizado e pronto para a construção da
 - [x] Execução e teste de idempotência dos scripts de migração via Node.js CLI.
 
 ### Fase 3 - Camada de Modelos (MVC) e Módulos Utilitários
-- [ ] Implementação de `app/utils/logger.js` (logs em `localStorage`).
-- [ ] Implementação de `app/utils/calendar.js` (links Google Agenda e download `.ics`).
-- [ ] Implementação de `app/models/ConfiguracaoModel.js` (leitura, verificação de prazo e fallback).
-- [ ] Implementação de `app/models/PresenteModel.js` (leitura, listagem disponível e reserva atômica via `runTransaction`).
-- [ ] Implementação de `app/models/ConfirmacaoModel.js` (registro de RSVP, índice em `nomes_confirmados` e liberação/estorno).
+- [x] Implementação de `app/utils/logger.js` (logs de erros e segurança em `localStorage` com limite de 50 registros e fallback em memória).
+- [x] Implementação de `app/utils/calendar.js` (links Google Agenda, download `.ics` RFC 5545 e formatação em PT-BR).
+- [x] Implementação de `app/models/ConfiguracaoModel.js` (leitura de prazos, verificação de expiração RN-06 e fallback para `config.js`).
+- [x] Implementação de `app/models/PresenteModel.js` (listagem disponível RN-01, cadastro com validações e reserva atômica via `runTransaction` RN-02).
+- [x] Implementação de `app/models/ConfirmacaoModel.js` (normalização de nomes, verificação amigável de homônimos via busca pontual sem expor convidados RN-05, confirmação nas 3 modalidades, liberação de presentes RN-07 e métricas RN-08).
+- [x] Suite de testes unitários automatizados com 21 asserções cobrindo todos os métodos e cenários de erro (`npm test`).
 
 ### Fase 4 - Módulo do Convite Digital Público (Visão do Convidado)
 - [ ] Implementação de `app/views/ToastView.js` (notificações visuais e mensagens amigáveis).
@@ -106,10 +109,11 @@ O projeto encontra-se perfeitamente estabilizado e pronto para a construção da
 
 ## 4. Fase Atual
 
-- **Fase 2 - Banco de Dados, Persistência, Regras de Segurança e Migrações** (Concluída com Sucesso).
+- **Fase 3 - Camada de Modelos (MVC) e Módulos Utilitários** (Concluída com Sucesso).
 
 ---
 
 ## 5. Próximo Passo Recomendado
 
-- **Iniciar a Fase 3:** Construir a Camada de Modelos (MVC) e Módulos Utilitários (`app/utils/logger.js`, `app/utils/calendar.js`, `app/models/ConfiguracaoModel.js`, `app/models/PresenteModel.js` e `app/models/ConfirmacaoModel.js`).
+- **Iniciar a Fase 4:** Construir o Módulo do Convite Digital Público (Visão do Convidado) (`app/views/ToastView.js`, `app/views/ConviteView.js`, `app/views/FormularioRSVPView.js`, `app/controllers/ConviteController.js`, `assets/css/main.css` e integração em `index.html`).
+

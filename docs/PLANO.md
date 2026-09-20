@@ -110,11 +110,12 @@ Fase 7 - Homologação, Testes Completos de Aceitação e Preparação para Depl
   Construir as classes e módulos de domínio (Models) responsáveis pelo estado, regras de negócio e transações no Firestore, além dos utilitários centrais de logging, formatação de datas e manipulação de calendários.
 
 - **Checklist de Tarefas:**
-  - [ ] Implementação de `app/utils/logger.js`: captura de exceções em `localStorage` sob as chaves `_app_error_logs` e `_app_sec_logs`.
-  - [ ] Implementação de `app/utils/calendar.js`: gerador de link para Google Agenda e gerador de arquivo padronizado `.ics` (iCalendar / Apple / Outlook).
-  - [ ] Implementação de `app/models/ConfiguracaoModel.js`: leitura de parâmetros gerais do evento, verificação de expiração de prazo (`data_limite_confirmacao`) e fallback para constantes de `config.js`.
-  - [ ] Implementação de `app/models/PresenteModel.js`: listagem de presentes ativos com estoque (`quantidade_disponivel > 0`), cadastro de novos itens e transação atômica (`runTransaction`) para decremento unitário seguro contra concorrência.
-  - [ ] Implementação de `app/models/ConfirmacaoModel.js`: persistência de confirmação de presença (com opções `presente_item`, `pix_surpresa`, `apenas_presenca`), indexação segura em `nomes_confirmados`, checagem pontual de homônimos via `getDoc()` e liberação/estorno de itens.
+  - [x] Implementação de `app/utils/logger.js`: captura de exceções em `localStorage` sob as chaves `_app_error_logs` e `_app_sec_logs`.
+  - [x] Implementação de `app/utils/calendar.js`: gerador de link para Google Agenda e gerador de arquivo padronizado `.ics` (iCalendar / Apple / Outlook).
+  - [x] Implementação de `app/models/ConfiguracaoModel.js`: leitura de parâmetros gerais do evento, verificação de expiração de prazo (`data_limite_confirmacao`) e fallback para constantes de `config.js`.
+  - [x] Implementação de `app/models/PresenteModel.js`: listagem de presentes ativos com estoque (`quantidade_disponivel > 0`), cadastro de novos itens e transação atômica (`runTransaction`) para decremento unitário seguro contra concorrência.
+  - [x] Implementação de `app/models/ConfirmacaoModel.js`: persistência de confirmação de presença (com opções `presente_item`, `pix_surpresa`, `apenas_presenca`), indexação segura em `nomes_confirmados`, checagem pontual de homônimos via `getDoc()` e liberação/estorno de itens.
+
 
 - **Critérios de Pronto:**
   - Models realizam operações CRUD e transações atômicas com tratamento rigoroso de erros.
