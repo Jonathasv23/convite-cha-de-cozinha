@@ -1,0 +1,2 @@
+# database/migrations
+# Esta pasta contém os scripts versionados de migração do banco Firestore.

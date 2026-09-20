@@ -1,0 +1,2 @@
+# app/views
+# Esta pasta contém os módulos de apresentação e manipulação de DOM (ConviteView, FormularioRSVPView, PainelNoivaView, ToastView).

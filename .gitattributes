@@ -1,0 +1,37 @@
+# ==============================================================================
+# .gitattributes - Convite Digital e Lista de Presentes para Chá de Cozinha
+# Padronização de quebras de linha e tratamento de arquivos binários
+# ==============================================================================
+
+# Normalização automática de arquivos de texto com final de linha consistente (LF)
+* text=auto eol=lf
+
+# Arquivos de Código, Estrutura e Estilização
+*.html text eol=lf
+*.css text eol=lf
+*.js text eol=lf
+*.json text eol=lf
+*.md text eol=lf
+
+# Arquivos de Regras e Configuração do Repositório
+*.rules text eol=lf
+.gitignore text eol=lf
+.gitattributes text eol=lf
+.gitkeep text eol=lf
+
+# Recursos Vetoriais e Gráficos
+*.svg text eol=lf
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.ico binary
+*.webp binary
+
+# Fontes Tipográficas e Documentos
+*.woff binary
+*.woff2 binary
+*.ttf binary
+*.otf binary
+*.eot binary
+*.pdf binary

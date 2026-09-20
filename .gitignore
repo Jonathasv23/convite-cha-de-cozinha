@@ -1,0 +1,106 @@
+# ==============================================================================
+# .gitignore - Convite Digital e Lista de Presentes para Chá de Cozinha
+# Identidade Visual: Botanical Heritage Atelier
+# Stack: HTML5 / Vanilla JS (ES6+) / CSS3 / Firebase Firestore / GitHub Pages
+# ==============================================================================
+
+# 1. Arquivos de Credenciais, Chaves Privadas e Segredos
+# ------------------------------------------------------------------------------
+# Chaves de contas de serviço do Firebase/Google Cloud (utilizadas em scripts administrativos)
+*serviceAccountKey*.json
+serviceAccount*.json
+firebase-adminsdk*.json
+
+# Chaves privadas, certificados e tokens de segurança
+*.pem
+*.key
+*.cert
+*.crt
+*.pfx
+*.p12
+
+# Arquivos de ambiente e configurações com dados sensíveis
+.env
+.env.*
+*.env
+*.local
+config/config.local.js
+
+# 2. Logs e Dados de Execução Local
+# ------------------------------------------------------------------------------
+*.log
+logs/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+firebase-debug.log*
+firestore-debug.log*
+
+# 3. Dependências e Caches de Ferramentas de Desenvolvimento
+# ------------------------------------------------------------------------------
+# (Caso sejam utilizadas ferramentas Node.js locais para migrações ou testes)
+node_modules/
+.npm/
+.cache/
+.parcel-cache/
+.temp/
+temp/
+tmp/
+
+# 4. Arquivos do Sistema Operacional
+# ------------------------------------------------------------------------------
+# Windows
+Thumbs.db
+ehthumbs.db
+ehthumbs_vista.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+.Spotlight-V100
+.Trashes
+
+# Linux
+*~
+.fuse_hidden*
+.directory
+
+# 5. Configurações Pessoais de Editores e IDEs
+# ------------------------------------------------------------------------------
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# 6. Backups, Dumps de Banco e Arquivos Temporários
+# ------------------------------------------------------------------------------
+*.bak
+*.backup
+*.dump
+*.sql
+*.sqlite
+*.zip
+*.tar.gz
+*.rar
+
+# 7. Regras de Exceção Explícitas (Arquivos Mandatórios do Projeto)
+# ------------------------------------------------------------------------------
+# Garante que as configurações públicas e os scripts de banco nunca sejam ignorados
+!config/config.example.js
+!config/config.js
+!database/firestore.rules
+!database/firestore.indexes.json
+!database/migrations/
+!database/migrations/**
+!docs/
+!docs/**
+!AGENTS.md

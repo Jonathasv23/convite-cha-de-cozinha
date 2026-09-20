@@ -1,0 +1,22 @@
+{
+  "indexes": [
+    {
+      "collectionGroup": "presentes",
+      "queryScope": "COLLECTION",
+      "fields": [
+        { "fieldPath": "ativo", "order": "ASCENDING" },
+        { "fieldPath": "quantidade_disponivel", "order": "DESCENDING" },
+        { "fieldPath": "nome", "order": "ASCENDING" }
+      ]
+    },
+    {
+      "collectionGroup": "confirmacoes",
+      "queryScope": "COLLECTION",
+      "fields": [
+        { "fieldPath": "tipo_escolha", "order": "ASCENDING" },
+        { "fieldPath": "criado_em", "order": "DESCENDING" }
+      ]
+    }
+  ],
+  "fieldOverrides": []
+}

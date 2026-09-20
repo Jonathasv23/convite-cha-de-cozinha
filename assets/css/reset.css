@@ -1,0 +1,78 @@
+/* ==========================================================================
+   Modern CSS Reset & Base Normalization
+   ========================================================================== */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  scroll-behavior: smooth;
+  font-family: var(--font-body, sans-serif);
+  color: var(--color-text-body, #545e50);
+  background-color: var(--color-canvas, #f8f7f2);
+}
+
+body {
+  min-height: 100vh;
+  line-height: var(--line-height-body-md, 1.6);
+  font-size: var(--font-size-body-md, 1rem);
+  overflow-x: hidden;
+}
+
+img,
+picture,
+video,
+canvas,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+input,
+button,
+textarea,
+select {
+  font: inherit;
+  color: inherit;
+}
+
+button {
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+ul,
+ol {
+  list-style: none;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-display, serif);
+  color: var(--color-text-headings, #20281d);
+  font-weight: 400;
+}
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+}

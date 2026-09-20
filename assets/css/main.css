@@ -1,0 +1,21 @@
+/* ==========================================================================
+   Convite Digital Público - Estilos Base
+   Identidade: Botanical Heritage Atelier
+   ========================================================================== */
+
+@import url('./variables.css');
+@import url('./reset.css');
+
+/* Scaffolding Base */
+.app-container {
+  width: 100%;
+  max-width: var(--container-narrow);
+  margin: 0 auto;
+  padding: var(--space-xl) var(--gutter-mobile);
+}
+
+@media (min-width: 768px) {
+  .app-container {
+    padding: var(--space-2xl) var(--gutter-desktop);
+  }
+}

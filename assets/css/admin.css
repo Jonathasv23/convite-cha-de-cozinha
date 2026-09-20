@@ -1,0 +1,21 @@
+/* ==========================================================================
+   Painel Administrativo da Noiva - Estilos Base
+   Identidade: Botanical Heritage Atelier
+   ========================================================================== */
+
+@import url('./variables.css');
+@import url('./reset.css');
+
+/* Scaffolding Base */
+.admin-container {
+  width: 100%;
+  max-width: var(--container-max);
+  margin: 0 auto;
+  padding: var(--space-lg) var(--gutter-mobile);
+}
+
+@media (min-width: 768px) {
+  .admin-container {
+    padding: var(--space-xl) var(--gutter-desktop);
+  }
+}

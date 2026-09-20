@@ -1,0 +1,2 @@
+# app/models
+# Esta pasta contém as classes e módulos de domínio e persistência (PresenteModel, ConfirmacaoModel, ConfiguracaoModel).

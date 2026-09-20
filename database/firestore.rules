@@ -1,0 +1,44 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    // Configurações: Leitura aberta a todos; Escrita restrita à noiva autenticada
+    match /configuracoes/{documento} {
+      allow read: if true;
+      allow write: if request.auth != null;
+    }
+    
+    // Presentes: Leitura pública; Criação/deleção para admin; Baixa atômica no RSVP (-1) por visitantes ou edição/estorno (+1) pelo admin
+    match /presentes/{presenteId} {
+      allow read: if true;
+      allow create, delete: if request.auth != null;
+      allow update: if request.auth != null
+                    || (request.resource.data.quantidade_disponivel >= 0
+                        && request.resource.data.quantidade_disponivel == resource.data.quantidade_disponivel - 1
+                        && request.resource.data.nome == resource.data.nome
+                        && request.resource.data.quantidade_total == resource.data.quantidade_total
+                        && request.resource.data.ativo == resource.data.ativo);
+    }
+    
+    // Confirmações: Leitura, alteração e exclusão exclusivas para a noiva autenticada (LGPD); Criação pública validada
+    match /confirmacoes/{confirmacaoId} {
+      allow read, update, delete: if request.auth != null;
+      allow create: if request.resource.data.nome_convidado is string
+                    && request.resource.data.nome_convidado.size() >= 2
+                    && request.resource.data.tipo_escolha in ['presente_item', 'pix_surpresa', 'apenas_presenca'];
+    }
+
+    // Índice de Homônimos: Verificação pontual aberta (get); Listagem e exclusão restritas à administração (LGPD); Escrita/atualização de índice pública
+    match /nomes_confirmados/{nomeNormalizado} {
+      allow get: if true;
+      allow list: if request.auth != null;
+      allow create, update: if true;
+      allow delete: if request.auth != null;
+    }
+    
+    // Migrações internas: Totalmente bloqueadas para acesso público
+    match /_migrations/{migrationId} {
+      allow read, write: if request.auth != null;
+    }
+  }
+}
