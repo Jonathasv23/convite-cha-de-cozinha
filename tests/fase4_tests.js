@@ -117,9 +117,9 @@ test('2. ConviteView: Renderização do Hero Card com nomes oficiais (Hevelyn & 
 
   assert.ok(container.innerHTML.includes('Hevelyn &amp; Jonathas'), 'Deve conter os nomes oficiais no HTML');
   assert.ok(container.innerHTML.includes('H &amp; J'), 'Monograma botânico deve conter as iniciais H & J');
-  assert.ok(container.innerHTML.includes('Espaço Jardim das Camélias'), 'Deve exibir o nome do local');
-  assert.ok(container.innerHTML.includes('Ver no Google Maps'), 'Deve conter link para o Google Maps');
-  console.log('  [PASSOU] Hero Card renderiza com monograma botânico e dados de Hevelyn & Jonathas');
+  assert.ok(container.innerHTML.includes('Sejam todos muito bem-vindos!'), 'Deve exibir a mensagem de boas-vindas');
+  assert.ok(container.innerHTML.includes('CHÁ DE COZINHA'), 'Deve exibir a tag de cabeçalho do evento');
+  console.log('  [PASSOU] Hero Card renderiza com monograma botânico, nomes de Hevelyn & Jonathas e mensagem de acolhimento');
 });
 
 test('3. ConviteView: Renderização da Vitrine de Paleta de Cores', () => {

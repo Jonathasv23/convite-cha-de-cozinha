@@ -69,12 +69,7 @@ export class ConviteController {
       });
     }
 
-    // 2. Contagem Regressiva
-    if (countdownContainer) {
-      ConviteView.renderizarCountdown(countdownContainer);
-    }
-
-    // 3. Vitrine da Paleta de Cores
+    // 2. Vitrine da Paleta de Cores (posicionada diretamente após a mensagem do Hero Card)
     if (paletteContainer) {
       ConviteView.renderizarPaletaCores(paletteContainer, this.configuracoes.paletaCores);
     }
@@ -99,7 +94,12 @@ export class ConviteController {
   _iniciarContagemRegressiva() {
     if (this.timerCountdown) {
       clearInterval(this.timerCountdown);
+      this.timerCountdown = null;
     }
+
+    if (typeof document === 'undefined') return;
+    const elDias = document.getElementById('countdown-dias');
+    if (!elDias) return; // Se o bloco de contagem foi removido, não inicia o loop
 
     const dataEvento = this.configuracoes.evento?.dataHoraISO || '2026-10-24T16:00:00';
 
@@ -111,6 +111,7 @@ export class ConviteController {
       const status = ConviteView.atualizarContagem(dataEvento);
       if (status.encerrado) {
         clearInterval(this.timerCountdown);
+        this.timerCountdown = null;
       }
     }, 1000);
   }

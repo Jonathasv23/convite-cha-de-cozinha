@@ -404,78 +404,9 @@
               </div>
               <p class="hero-message">${escaparHtml(mensagemBoasVindas)}</p>
             </div>
-
-            <!-- Detalhes Nobres do Evento: Data, Horário e Local -->
-            <div class="event-details-card">
-              <div class="event-details-card__inner">
-                <!-- Bloco Data e Horário -->
-                <div class="event-detail-column">
-                  <span class="event-detail-tag">QUANDO CELEBRAREMOS</span>
-                  <p class="event-detail-main">${escaparHtml(evento.dataHoraFormatada)}</p>
-                  <span class="event-detail-hint">Chegue com antecedência para celebrarmos juntos</span>
-                </div>
-
-                <!-- Separador Central com Florão Botânico -->
-                <div class="event-detail-divider" aria-hidden="true">
-                  <span class="event-detail-divider__line"></span>
-                  <svg class="event-detail-divider__icon" width="22" height="22" viewBox="0 0 24 24" fill="none">
-                    <path d="M12 2C7 7 4 14 12 22C20 14 17 7 12 2Z" fill="var(--color-tertiary)" fill-opacity="0.8"/>
-                    <circle cx="12" cy="12" r="2" fill="var(--color-primary)"/>
-                  </svg>
-                  <span class="event-detail-divider__line"></span>
-                </div>
-
-                <!-- Bloco Local do Encontro -->
-                <div class="event-detail-column">
-                  <span class="event-detail-tag">ONDE NOS ENCONTRAREMOS</span>
-                  <p class="event-detail-main">${escaparHtml(evento.local)}</p>
-                  <span class="event-detail-sub">${escaparHtml(evento.enderecoCompleto)}</span>
-                </div>
-              </div>
-            </div>
-
-            <div class="hero-actions">
-              <a href="${escaparHtml(evento.googleMapsUrl)}" target="_blank" rel="noopener noreferrer" class="btn btn--secondary btn--icon">
-                <span>📍 Ver no Google Maps</span>
-              </a>
-
-              <div class="dropdown-calendar" id="calendar-actions-wrapper">
-                <button type="button" class="btn btn--secondary btn--icon" id="btn-agenda-toggle">
-                  <span>🗓️ Adicionar à Agenda</span>
-                </button>
-                <div class="dropdown-calendar__menu" id="calendar-menu" hidden>
-                  <a href="${createGoogleCalendarUrl(evento)}" target="_blank" rel="noopener noreferrer" class="dropdown-calendar__item">
-                    <span>📅 Google Agenda</span>
-                  </a>
-                  <button type="button" class="dropdown-calendar__item" id="btn-download-ics">
-                    <span>🍏 Apple / Outlook (.ics)</span>
-                  </button>
-                </div>
-              </div>
-            </div>
           </div>
         </div>
       `;
-
-      const toggleBtn = document.getElementById('btn-agenda-toggle');
-      const menu = document.getElementById('calendar-menu');
-      const dlIcs = document.getElementById('btn-download-ics');
-
-      if (toggleBtn && menu) {
-        toggleBtn.addEventListener('click', (e) => {
-          e.stopPropagation();
-          const isHidden = menu.hasAttribute('hidden');
-          if (isHidden) menu.removeAttribute('hidden');
-          else menu.setAttribute('hidden', '');
-        });
-        document.addEventListener('click', () => menu.setAttribute('hidden', ''));
-      }
-      if (dlIcs) {
-        dlIcs.addEventListener('click', () => {
-          downloadIcsFile(evento, 'cha_de_cozinha_hevelyn_jonathas.ics');
-          if (menu) menu.setAttribute('hidden', '');
-        });
-      }
     },
 
     renderizarCountdown(container) {
@@ -729,7 +660,7 @@
       const rsvpEl = document.getElementById('rsvp-section');
 
       ConviteView.renderizarHero(heroEl, { evento: conf.evento, mensagemBoasVindas: conf.mensagemBoasVindas });
-      ConviteView.renderizarCountdown(countEl);
+      if (countEl) ConviteView.renderizarCountdown(countEl);
       ConviteView.renderizarPaleta(palEl, conf.paletaCores);
 
       const dataFormatada = formatarDataExtenso(conf.dataLimiteConfirmacao);
@@ -833,10 +764,12 @@
       montarForm(presentes);
 
       // Countdown loop
-      ConviteView.atualizarContagem(conf.evento.dataHoraISO);
-      setInterval(() => {
+      if (document.getElementById('countdown-dias')) {
         ConviteView.atualizarContagem(conf.evento.dataHoraISO);
-      }, 1000);
+        setInterval(() => {
+          ConviteView.atualizarContagem(conf.evento.dataHoraISO);
+        }, 1000);
+      }
 
     } catch (err) {
       console.error('[Convite] Falha na inicialização:', err);

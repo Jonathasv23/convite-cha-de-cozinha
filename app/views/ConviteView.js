@@ -71,77 +71,9 @@ export class ConviteView {
             </div>
             <p class="hero-message">${this._escaparHtml(mensagemBoasVindas)}</p>
           </div>
-
-          <!-- Detalhes Nobres do Evento: Data, Horário e Local -->
-          <div class="event-details-card">
-            <div class="event-details-card__inner">
-              <!-- Bloco Data e Horário -->
-              <div class="event-detail-column">
-                <span class="event-detail-tag">QUANDO CELEBRAREMOS</span>
-                <p class="event-detail-main">${this._escaparHtml(evento.dataHoraFormatada)}</p>
-                <span class="event-detail-hint">Chegue com antecedência para celebrarmos juntos</span>
-              </div>
-
-              <!-- Separador Central com Florão Botânico -->
-              <div class="event-detail-divider" aria-hidden="true">
-                <span class="event-detail-divider__line"></span>
-                <svg class="event-detail-divider__icon" width="22" height="22" viewBox="0 0 24 24" fill="none">
-                  <path d="M12 2C7 7 4 14 12 22C20 14 17 7 12 2Z" fill="var(--color-tertiary)" fill-opacity="0.8"/>
-                  <circle cx="12" cy="12" r="2" fill="var(--color-primary)"/>
-                </svg>
-                <span class="event-detail-divider__line"></span>
-              </div>
-
-              <!-- Bloco Local do Encontro -->
-              <div class="event-detail-column">
-                <span class="event-detail-tag">ONDE NOS ENCONTRAREMOS</span>
-                <p class="event-detail-main">${this._escaparHtml(evento.local)}</p>
-                <span class="event-detail-sub">${this._escaparHtml(evento.enderecoCompleto)}</span>
-              </div>
-            </div>
-          </div>
-
-          <!-- Ações Logísticas (Mapa e Calendário) -->
-          <div class="hero-actions">
-            <a href="${this._escaparHtml(evento.googleMapsUrl)}" target="_blank" rel="noopener noreferrer" class="btn btn--secondary btn--icon" id="btn-como-chegar">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                <polygon points="3 11 22 2 13 21 11 13 3 11"></polygon>
-              </svg>
-              <span>Ver no Google Maps</span>
-            </a>
-
-            <div class="dropdown-calendar" id="calendar-actions-wrapper">
-              <button type="button" class="btn btn--secondary btn--icon" id="btn-agenda-toggle" aria-expanded="false" aria-haspopup="true">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
-                  <line x1="16" y1="2" x2="16" y2="6"></line>
-                  <line x1="8" y1="2" x2="8" y2="6"></line>
-                  <line x1="3" y1="10" x2="21" y2="10"></line>
-                  <path d="M12 14v4M10 16h4"/>
-                </svg>
-                <span>Adicionar à Agenda</span>
-                <svg class="dropdown-arrow" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                  <polyline points="6 9 12 15 18 9"></polyline>
-                </svg>
-              </button>
-              <div class="dropdown-calendar__menu" id="calendar-menu" hidden>
-                <a href="${createGoogleCalendarUrl({ ...evento, dataHoraISO: evento.dataHoraISO || '2026-10-24T16:00:00' })}" target="_blank" rel="noopener noreferrer" class="dropdown-calendar__item" id="btn-add-google-calendar">
-                  <span class="dropdown-calendar__icon">📅</span>
-                  <span>Google Agenda</span>
-                </a>
-                <button type="button" class="dropdown-calendar__item" id="btn-download-ics">
-                  <span class="dropdown-calendar__icon">🍏</span>
-                  <span>Apple / Outlook (.ics)</span>
-                </button>
-              </div>
-            </div>
-          </div>
         </div>
       </div>
     `;
-
-    // Configura os ouvintes de calendário
-    this._vincularEventosAgenda(evento);
   }
 
   /**
