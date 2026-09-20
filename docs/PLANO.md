@@ -79,12 +79,12 @@ Fase 7 - Homologação, Testes Completos de Aceitação e Preparação para Depl
   Configurar a camada declarativa de persistência no Firebase Firestore, implementar as regras estritas de segurança em conformidade com a LGPD e atomicidade (`database/firestore.rules`), definir os índices compostos de consulta (`database/firestore.indexes.json`) e criar os scripts versionados e idempotentes de migração/semente de dados (`database/migrations/`).
 
 - **Checklist de Tarefas:**
-  - [ ] Implementação de `database/firestore.rules` com regras consolidadas da Seção 11.3 do FSD (bloqueio público de listagem de confirmações, criação validada, consulta unitária ao índice `nomes_confirmados`, decremento atômico de presentes e controle de escrita restrito à noiva).
-  - [ ] Implementação de `database/firestore.indexes.json` com os índices compostos de `presentes` (`ativo` ASC + `quantidade_disponivel` DESC + `nome` ASC) e `confirmacoes` (`tipo_escolha` ASC + `criado_em` DESC).
-  - [ ] Implementação do executor de migrações (`database/migrations/run.js`) compatível com Node.js para setup inicial e carga controlada.
-  - [ ] Criação do script de schema e parâmetros iniciais (`database/migrations/001_initial_schema.js`) para popular o documento `configuracoes/geral` com idempotência via coleção `_migrations`.
-  - [ ] Criação do script de semente de presentes (`database/migrations/002_seed_presentes.js`) para cadastrar a lista inicial de itens domésticos do chá em `presentes`.
-  - [ ] Criação de módulo de inicialização do cliente Firebase SDK Web v10+ em formato modular (`app/utils/firebase.js`).
+  - [x] Implementação de `database/firestore.rules` com regras consolidadas da Seção 11.3 do FSD (bloqueio público de listagem de confirmações, criação validada, consulta unitária ao índice `nomes_confirmados`, decremento atômico de presentes e controle de escrita restrito à noiva).
+  - [x] Implementação de `database/firestore.indexes.json` com os índices compostos de `presentes` (`ativo` ASC + `quantidade_disponivel` DESC + `nome` ASC) e `confirmacoes` (`tipo_escolha` ASC + `criado_em` DESC).
+  - [x] Implementação do executor de migrações (`database/migrations/run.js`) compatível com Node.js para setup inicial e carga controlada.
+  - [x] Criação do script de schema e parâmetros iniciais (`database/migrations/001_initial_schema.js`) para popular o documento `configuracoes/geral` com idempotência via coleção `_migrations`.
+  - [x] Criação do script de semente de presentes (`database/migrations/002_seed_presentes.js`) para cadastrar a lista inicial de itens domésticos do chá em `presentes`.
+  - [x] Criação de módulo de inicialização do cliente Firebase SDK Web v10+ em formato modular (`app/utils/firebase.js`).
 
 - **Critérios de Pronto:**
   - Regras do Firestore prontas e validadas contra vazamento de dados de convidados.

@@ -1,0 +1,11 @@
+{
+  "name": "convite-cha-cozinha",
+  "version": "1.0.0",
+  "description": "Convite Digital e Lista de Presentes para Chá de Cozinha - Botanical Heritage Atelier",
+  "type": "module",
+  "scripts": {
+    "migrate": "node database/migrations/run.js",
+    "migrate:dry": "node database/migrations/run.js --dry-run"
+  },
+  "private": true
+}

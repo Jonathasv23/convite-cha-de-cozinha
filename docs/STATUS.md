@@ -2,17 +2,19 @@
 
 **Sistema:** Convite Digital e Lista de Presentes para Chá de Cozinha  
 **Identidade Visual:** *Botanical Heritage Atelier*  
-**Última Atualização:** 20/09/2026 - Controle de versão Git configurado e pronto para envio ao GitHub  
+**Última Atualização:** 20/09/2026 - Conclusão da Fase 2 (Banco de Dados, Persistência, Regras de Segurança e Migrações)  
 
 ---
 
 ## 1. Estado Atual do Projeto
 
-O terreno do projeto foi preparado com sucesso. A estrutura base de pastas e arquivos foi criada rigorosamente conforme a Seção 5.2 do `docs/FSD.md` e os tokens de design do `docs/DESIGN.md`. Foram gerados o plano de construção incremental (`docs/PLANO.md`), o arquivo de contexto para agentes de IA (`AGENTS.md`), o registro vivo de status (`docs/STATUS.md`), o diário de erros (`docs/ERROS.md`), as folhas de estilo base com variáveis CSS táteis, os parâmetros de configuração e os esqueletos semânticos de entrada.
+A camada de persistência e governança em nuvem foi implementada com absoluto sucesso na **Fase 2**:
+- As regras declarativas de segurança do Firestore (`database/firestore.rules`) foram consolidadas e validadas contra vazamento de dados de convidados, garantindo total conformidade com a LGPD (listagem de confirmações restrita ao admin, verificação de homônimos via busca pontual por chave e baixa atômica de presentes no fluxo público).
+- Os índices compostos de consulta foram consolidados em `database/firestore.indexes.json`.
+- O módulo de inicialização modular do Firebase Web SDK v10+ (`app/utils/firebase.js`) foi criado, importando via CDN oficial sem necessidade de bundlers e com suporte gracioso a modo de demonstração local.
+- O executor de migrações CLI (`database/migrations/run.js`) e os scripts versionados de schema inicial (`001_initial_schema.js`) e semente de catálogo com 20 presentes artesanais (`002_seed_presentes.js`) foram implementados com garantia de idempotência via coleção `_migrations` e testados com sucesso via Node.js.
 
-Adicionalmente, o controle de versão foi inicializado com Git (`branch -M main`), com arquivos `.gitignore` e `.gitattributes` estritamente alinhados à stack e às regras de segurança (bloqueando credenciais, chaves de serviço, arquivos `.env`, caches e logs). O primeiro commit estrutural foi realizado, aguardando a conexão do repositório remoto no GitHub para o envio (push) inicial.
-
-Nenhuma funcionalidade de negócio principal foi implementada prematuramente nesta etapa, respeitando estritamente o isolamento da Fase 1.
+O projeto encontra-se perfeitamente estabilizado e pronto para a construção da camada de Modelos (MVC) na **Fase 3**.
 
 ---
 
@@ -21,7 +23,7 @@ Nenhuma funcionalidade de negócio principal foi implementada prematuramente nes
 | Fase | Descrição | Status |
 | :--- | :--- | :---: |
 | **Fase 1** | Infraestrutura, Estrutura Base, Design Tokens e Controle de Versão (Git/GitHub) | **Concluída** |
-| **Fase 2** | Banco de Dados, Persistência, Regras de Segurança e Migrações | *Pendente* |
+| **Fase 2** | Banco de Dados, Persistência, Regras de Segurança e Migrações | **Concluída** |
 | **Fase 3** | Camada de Modelos (MVC) e Módulos Utilitários | *Pendente* |
 | **Fase 4** | Módulo do Convite Digital Público (Visão do Convidado) | *Pendente* |
 | **Fase 5** | Módulo do Painel Administrativo da Noiva | *Pendente* |
@@ -51,12 +53,13 @@ Nenhuma funcionalidade de negócio principal foi implementada prematuramente nes
 - [ ] Primeiro push para o GitHub realizado (pendente da criação do repositório remoto).
 
 ### Fase 2 - Banco de Dados, Persistência, Regras de Segurança e Migrações
-- [ ] Implementação de `database/firestore.rules` com regras consolidadas do FSD Seção 11.3.
-- [ ] Implementação de `database/firestore.indexes.json` com os índices compostos exigidos.
-- [ ] Implementação do utilitário executor de migrações (`database/migrations/run.js`).
-- [ ] Script de migração `database/migrations/001_initial_schema.js` (parâmetros do documento `configuracoes/geral`).
-- [ ] Script de semente `database/migrations/002_seed_presentes.js` (catálogo inicial de presentes).
-- [ ] Módulo de inicialização do cliente Firebase Web SDK v10+ modular (`app/utils/firebase.js`).
+- [x] Implementação de `database/firestore.rules` com regras consolidadas do FSD Seção 11.3.
+- [x] Implementação de `database/firestore.indexes.json` com os índices compostos exigidos.
+- [x] Implementação do utilitário executor de migrações (`database/migrations/run.js`).
+- [x] Script de migração `database/migrations/001_initial_schema.js` (parâmetros do documento `configuracoes/geral`).
+- [x] Script de semente `database/migrations/002_seed_presentes.js` (catálogo inicial de 20 presentes finos).
+- [x] Módulo de inicialização do cliente Firebase Web SDK v10+ modular (`app/utils/firebase.js`).
+- [x] Execução e teste de idempotência dos scripts de migração via Node.js CLI.
 
 ### Fase 3 - Camada de Modelos (MVC) e Módulos Utilitários
 - [ ] Implementação de `app/utils/logger.js` (logs em `localStorage`).
@@ -103,10 +106,10 @@ Nenhuma funcionalidade de negócio principal foi implementada prematuramente nes
 
 ## 4. Fase Atual
 
-- **Fase 1 - Infraestrutura, Estrutura Base e Design Tokens** (Concluída).
+- **Fase 2 - Banco de Dados, Persistência, Regras de Segurança e Migrações** (Concluída com Sucesso).
 
 ---
 
 ## 5. Próximo Passo Recomendado
 
-- **Iniciar a Fase 2:** Implementar a camada de persistência e segurança do Firestore (`database/firestore.rules`, `database/firestore.indexes.json`, `app/utils/firebase.js` e scripts versionados de migração em `database/migrations/`).
+- **Iniciar a Fase 3:** Construir a Camada de Modelos (MVC) e Módulos Utilitários (`app/utils/logger.js`, `app/utils/calendar.js`, `app/models/ConfiguracaoModel.js`, `app/models/PresenteModel.js` e `app/models/ConfirmacaoModel.js`).
