@@ -9,14 +9,18 @@
 
 ## 1. Estado Atual do Projeto
 
-A camada visual e de orquestração do convite público (`index.html`) foi implementada e testada com 100% de sucesso na **Fase 4**:
-- **Identidade e Nomes Atualizados:** Casal definido oficialmente como **Hevelyn & Jonathas**.
+A camada visual e de orquestração do convite público (`index.html`) foi implementada e testada com 100% de sucesso na **Fase 4**, com refinamentos estéticos de alta papelaria aplicados:
+- **Identidade e Nomes Oficiais:** Casal definido como **Hevelyn & Jonathas**.
+- **Data, Horário e Local Nobres:** Novo layout `.event-details-card` em estilo papelaria fina com divisor central botânico e florão floral decorativo.
+- **Paleta de Cores em Português Puro:** Nomes e descrições em português (*Verde Oliva*, *Verde Sálvia*, *Dourado Champanhe*, *Marfim Natural*, *Linho Suave*) sem códigos `#hex` textuais e sem termos em inglês.
+- **Confirmação de Presença Limpa:** Cabeçalho atualizado exclusivamente para `"SUA PRESENÇA"`, sem a sigla `"RSVP"`.
 - `app/views/ToastView.js`: Componente singleton para feedback visual instantâneo (sucesso, aviso, erro, cópia) com estética de papelaria fina e sanitização contra XSS.
-- `app/views/ConviteView.js`: Renderização do Hero Card com monograma botânico refinado em SVG ("H & J"), nomes dos noivos em *EB Garamond Display*, data/local, contagem regressiva viva calculada a cada segundo, ações logísticas (Google Maps e menu de calendário para Google Agenda e download de `.ics` via RFC 5545) e vitrine da paleta de cores sugerida.
-- `app/views/FormularioRSVPView.js`: Formulário integrado de RSVP com suporte a presentes físicos (com estoque disponível), opção de contribuição via PIX e confirmação exclusiva de presença; checagem amigável de homônimos em tempo real (RN-05); feedback comemorativo nominal e caixa de chave PIX com botão de cópia instantânea integrado à Clipboard API; e bloqueio gracioso por prazo expirado (RN-06).
+- `app/views/ConviteView.js`: Renderização do Hero Card com monograma botânico refinado em SVG ("H & J"), nomes dos noivos em *EB Garamond Display*, data/local nobres, contagem regressiva viva calculada a cada segundo, ações logísticas (Google Maps e menu de calendário para Google Agenda e download de `.ics` via RFC 5545) e vitrine da paleta de cores sugerida.
+- `app/views/FormularioRSVPView.js`: Formulário integrado de confirmação com suporte a presentes físicos (com estoque disponível), opção de contribuição via PIX e confirmação exclusiva de presença; checagem amigável de homônimos em tempo real (RN-05); feedback comemorativo nominal e caixa de chave PIX com botão de cópia instantânea integrado à Clipboard API; e bloqueio gracioso por prazo expirado (RN-06).
 - `app/controllers/ConviteController.js`: Orquestrador MVC da visão pública, integrando os dados dinâmicos do Firestore/fallback, temporizador do countdown, tratamento de envio e recuperação graciosa de concorrência (`ESGOTADO`).
 - `assets/css/main.css`: Estilização completa e refinada seguindo rigorosamente os tokens de `assets/css/variables.css` (*Botanical Heritage Atelier*), com sombras táteis, pseudo-bordas de papelaria e total responsividade *mobile-first* (360px a 1120px).
-- `index.html`: Marcação semântica HTML5 acessível com integração modular ES6.
+- `assets/js/app.bundle.js`: Sincronizado integralmente para suporte autônomo ao protocolo local `file:///`.
+- `index.html`: Marcação semântica HTML5 acessível com integração modular ES6 e fallback universal.
 - Todos os 30 testes automatizados (21 da Fase 3 + 9 da Fase 4) foram aprovados com 100% de êxito (`npm test`).
 
 O projeto encontra-se pronto para a implementação da **Fase 5 - Módulo do Painel Administrativo da Noiva**.

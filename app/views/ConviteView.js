@@ -72,33 +72,30 @@ export class ConviteView {
             <p class="hero-message">${this._escaparHtml(mensagemBoasVindas)}</p>
           </div>
 
-          <!-- Detalhes do Evento -->
-          <div class="event-details">
-            <div class="event-detail-item">
-              <span class="event-detail-icon" aria-hidden="true">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
-                  <line x1="16" y1="2" x2="16" y2="6"></line>
-                  <line x1="8" y1="2" x2="8" y2="6"></line>
-                  <line x1="3" y1="10" x2="21" y2="10"></line>
-                </svg>
-              </span>
-              <div class="event-detail-content">
-                <strong class="event-detail-label">DATA &amp; HORÁRIO</strong>
-                <span class="event-detail-value">${this._escaparHtml(evento.dataHoraFormatada)}</span>
+          <!-- Detalhes Nobres do Evento: Data, Horário e Local -->
+          <div class="event-details-card">
+            <div class="event-details-card__inner">
+              <!-- Bloco Data e Horário -->
+              <div class="event-detail-column">
+                <span class="event-detail-tag">QUANDO CELEBRAREMOS</span>
+                <p class="event-detail-main">${this._escaparHtml(evento.dataHoraFormatada)}</p>
+                <span class="event-detail-hint">Chegue com antecedência para celebrarmos juntos</span>
               </div>
-            </div>
 
-            <div class="event-detail-item">
-              <span class="event-detail-icon" aria-hidden="true">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
-                  <circle cx="12" cy="10" r="3"></circle>
+              <!-- Separador Central com Florão Botânico -->
+              <div class="event-detail-divider" aria-hidden="true">
+                <span class="event-detail-divider__line"></span>
+                <svg class="event-detail-divider__icon" width="22" height="22" viewBox="0 0 24 24" fill="none">
+                  <path d="M12 2C7 7 4 14 12 22C20 14 17 7 12 2Z" fill="var(--color-tertiary)" fill-opacity="0.8"/>
+                  <circle cx="12" cy="12" r="2" fill="var(--color-primary)"/>
                 </svg>
-              </span>
-              <div class="event-detail-content">
-                <strong class="event-detail-label">LOCAL DO ENCONTRO</strong>
-                <span class="event-detail-value">${this._escaparHtml(evento.local)}</span>
+                <span class="event-detail-divider__line"></span>
+              </div>
+
+              <!-- Bloco Local do Encontro -->
+              <div class="event-detail-column">
+                <span class="event-detail-tag">ONDE NOS ENCONTRAREMOS</span>
+                <p class="event-detail-main">${this._escaparHtml(evento.local)}</p>
                 <span class="event-detail-sub">${this._escaparHtml(evento.enderecoCompleto)}</span>
               </div>
             </div>
@@ -287,7 +284,6 @@ export class ConviteView {
         </div>
         <div class="palette-info">
           <strong class="palette-name">${this._escaparHtml(cor.nome)}</strong>
-          <span class="palette-hex">${this._escaparHtml(cor.hex)}</span>
           <span class="palette-desc">${this._escaparHtml(cor.descricao)}</span>
         </div>
       </div>

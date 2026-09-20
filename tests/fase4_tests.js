@@ -125,17 +125,17 @@ test('2. ConviteView: Renderização do Hero Card com nomes oficiais (Hevelyn & 
 test('3. ConviteView: Renderização da Vitrine de Paleta de Cores', () => {
   const container = new MockElement('palette-section-wrapper');
   const paleta = [
-    { nome: 'Heritage Olive', hex: '#3D4A36', descricao: 'Verde botânico nobre' },
-    { nome: 'Warm Sage', hex: '#8A9A80', descricao: 'Sálvia suave e acolhedora' },
-    { nome: 'Champagne Gold', hex: '#C5A880', descricao: 'Dourado champanhe sutil' }
+    { nome: 'Verde Oliva', hex: '#3D4A36', descricao: 'Verde botânico nobre' },
+    { nome: 'Verde Sálvia', hex: '#8A9A80', descricao: 'Sálvia suave e acolhedora' },
+    { nome: 'Dourado Champanhe', hex: '#C5A880', descricao: 'Dourado champanhe sutil' }
   ];
 
   ConviteView.renderizarPaletaCores(container, paleta);
 
-  assert.ok(container.innerHTML.includes('Heritage Olive'), 'Deve listar Heritage Olive');
-  assert.ok(container.innerHTML.includes('#3D4A36'), 'Deve exibir código hex');
-  assert.ok(container.innerHTML.includes('Champagne Gold'), 'Deve listar Champagne Gold');
-  console.log('  [PASSOU] Vitrine de paleta de cores renderiza as amostras com nomes e códigos');
+  assert.ok(container.innerHTML.includes('Verde Oliva'), 'Deve listar Verde Oliva');
+  assert.ok(container.innerHTML.includes('#3D4A36'), 'Deve aplicar código hex no background do swatch');
+  assert.ok(container.innerHTML.includes('Dourado Champanhe'), 'Deve listar Dourado Champanhe');
+  console.log('  [PASSOU] Vitrine de paleta de cores renderiza as amostras em português com amostras visuais');
 });
 
 test('4. FormularioRSVPView: Renderização do formulário ativo e itens de presente', () => {

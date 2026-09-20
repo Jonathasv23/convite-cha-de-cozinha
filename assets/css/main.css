@@ -208,62 +208,119 @@ body {
   margin: var(--space-sm) auto 0;
 }
 
-/* Detalhes do Evento (Data, Local) */
-.event-details {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-md);
-  margin-bottom: var(--space-xl);
-  text-align: left;
+/* Detalhes Nobres do Evento: Data, Horário e Local */
+.event-details-card {
+  margin: var(--space-xl) auto;
   background-color: var(--color-surface-container-lowest);
-  border: 1px solid var(--color-border-flax);
+  border: 1px solid var(--color-border-linen);
   border-radius: var(--radius-lg);
-  padding: var(--space-md) var(--space-lg);
+  box-shadow: var(--shadow-level-1);
+  overflow: hidden;
+  position: relative;
+  max-width: 580px;
 }
 
-@media (min-width: 600px) {
-  .event-details {
+.event-details-card__inner {
+  display: flex;
+  flex-direction: column;
+  padding: var(--space-lg) var(--space-md);
+  gap: var(--space-md);
+  align-items: center;
+  text-align: center;
+}
+
+@media (min-width: 640px) {
+  .event-details-card__inner {
     flex-direction: row;
-    justify-content: space-around;
+    align-items: center;
+    justify-content: space-between;
+    padding: var(--space-xl) var(--space-lg);
+    gap: 0;
   }
 }
 
-.event-detail-item {
-  display: flex;
-  align-items: flex-start;
-  gap: var(--space-sm);
-}
-
-.event-detail-icon {
-  color: var(--color-primary);
-  padding-top: 2px;
-  flex-shrink: 0;
-}
-
-.event-detail-content {
+.event-detail-column {
+  flex: 1;
   display: flex;
   flex-direction: column;
+  align-items: center;
+  text-align: center;
+  width: 100%;
 }
 
-.event-detail-label {
+.event-detail-tag {
+  display: inline-block;
   font-family: var(--font-body);
-  font-size: var(--font-size-label-md);
-  letter-spacing: var(--letter-spacing-label-md);
-  color: var(--color-text-muted);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  line-height: 1.2;
+  color: var(--color-secondary-dark);
   text-transform: uppercase;
+  margin-bottom: var(--space-xs);
 }
 
-.event-detail-value {
+.event-detail-main {
   font-family: var(--font-display);
-  font-size: 1.15rem;
+  font-size: 1.35rem;
+  line-height: 1.35;
   font-weight: 500;
   color: var(--color-text-headings);
-  margin-top: 2px;
+  margin: 0 0 4px 0;
 }
 
 .event-detail-sub {
+  font-family: var(--font-body);
   font-size: var(--font-size-body-sm);
   color: var(--color-text-body);
+  line-height: 1.4;
+}
+
+.event-detail-hint {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 0.95rem;
+  color: var(--color-text-muted);
+  line-height: 1.4;
+}
+
+/* Divisor Decorativo Central com Florão Botânico */
+.event-detail-divider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  margin: var(--space-xs) 0;
+  gap: var(--space-sm);
+}
+
+@media (min-width: 640px) {
+  .event-detail-divider {
+    flex-direction: column;
+    width: auto;
+    height: 100%;
+    min-height: 90px;
+    margin: 0 var(--space-md);
+    align-self: stretch;
+  }
+}
+
+.event-detail-divider__line {
+  flex: 1;
+  height: 1px;
+  background-color: var(--color-border-linen);
+}
+
+@media (min-width: 640px) {
+  .event-detail-divider__line {
+    width: 1px;
+    height: 100%;
+  }
+}
+
+.event-detail-divider__icon {
+  color: var(--color-tertiary);
+  flex-shrink: 0;
 }
 
 /* Ações do Hero (Mapa e Calendário) */
@@ -498,22 +555,17 @@ body {
 
 .palette-name {
   font-family: var(--font-display);
-  font-size: 1.05rem;
+  font-size: 1.1rem;
   font-weight: 500;
   color: var(--color-text-headings);
-}
-
-.palette-hex {
-  font-family: monospace;
-  font-size: 0.75rem;
-  color: var(--color-text-muted);
-  margin: 2px 0 4px;
+  margin-bottom: 4px;
 }
 
 .palette-desc {
-  font-size: 0.75rem;
+  font-family: var(--font-body);
+  font-size: 0.8rem;
   color: var(--color-text-body);
-  line-height: 1.2;
+  line-height: 1.35;
 }
 
 /* --------------------------------------------------------------------------

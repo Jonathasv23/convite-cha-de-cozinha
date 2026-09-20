@@ -25,17 +25,17 @@
       titulo: 'Chá de Cozinha de Hevelyn & Jonathas',
       subtitulo: 'Um momento de celebração e carinho para preparar o novo lar',
       dataHoraISO: '2026-10-24T16:00:00',
-      dataHoraFormatada: '24 de Outubro de 2026 às 16:00',
+      dataHoraFormatada: 'Sábado, 24 de Outubro de 2026 às 16h00',
       local: 'Espaço Jardim das Camélias',
       enderecoCompleto: 'Rua das Flores, 120 - Jardim Primavera, São Paulo - SP',
       googleMapsUrl: 'https://www.google.com/maps/search/?api=1&query=Espa%C3%A7o+Jardim+das+Cam%C3%A9lias+Rua+das+Flores+120',
     },
     paletaCores: [
-      { nome: 'Heritage Olive', hex: '#3D4A36', descricao: 'Verde botânico nobre' },
-      { nome: 'Warm Sage', hex: '#8A9A80', descricao: 'Sálvia suave e acolhedora' },
-      { nome: 'Champagne Gold', hex: '#C5A880', descricao: 'Dourado champanhe sutil' },
-      { nome: 'Ivory Parchment', hex: '#F8F7F2', descricao: 'Pergaminho marfim natural' },
-      { nome: 'Soft Linen', hex: '#D1C7B7', descricao: 'Linho rústico delicado' }
+      { nome: 'Verde Oliva', hex: '#3D4A36', descricao: 'Verde botânico nobre' },
+      { nome: 'Verde Sálvia', hex: '#8A9A80', descricao: 'Sálvia suave e acolhedora' },
+      { nome: 'Dourado Champanhe', hex: '#C5A880', descricao: 'Dourado champanhe sutil' },
+      { nome: 'Marfim Natural', hex: '#F8F7F2', descricao: 'Pergaminho marfim natural' },
+      { nome: 'Linho Suave', hex: '#D1C7B7', descricao: 'Linho rústico delicado' }
     ],
     fallbackDinamicos: {
       dataLimiteConfirmacao: '2026-10-18T23:59:59',
@@ -405,19 +405,30 @@
               <p class="hero-message">${escaparHtml(mensagemBoasVindas)}</p>
             </div>
 
-            <div class="event-details">
-              <div class="event-detail-item">
-                <span class="event-detail-icon">📅</span>
-                <div class="event-detail-content">
-                  <strong class="event-detail-label">DATA &amp; HORÁRIO</strong>
-                  <span class="event-detail-value">${escaparHtml(evento.dataHoraFormatada)}</span>
+            <!-- Detalhes Nobres do Evento: Data, Horário e Local -->
+            <div class="event-details-card">
+              <div class="event-details-card__inner">
+                <!-- Bloco Data e Horário -->
+                <div class="event-detail-column">
+                  <span class="event-detail-tag">QUANDO CELEBRAREMOS</span>
+                  <p class="event-detail-main">${escaparHtml(evento.dataHoraFormatada)}</p>
+                  <span class="event-detail-hint">Chegue com antecedência para celebrarmos juntos</span>
                 </div>
-              </div>
-              <div class="event-detail-item">
-                <span class="event-detail-icon">📍</span>
-                <div class="event-detail-content">
-                  <strong class="event-detail-label">LOCAL DO ENCONTRO</strong>
-                  <span class="event-detail-value">${escaparHtml(evento.local)}</span>
+
+                <!-- Separador Central com Florão Botânico -->
+                <div class="event-detail-divider" aria-hidden="true">
+                  <span class="event-detail-divider__line"></span>
+                  <svg class="event-detail-divider__icon" width="22" height="22" viewBox="0 0 24 24" fill="none">
+                    <path d="M12 2C7 7 4 14 12 22C20 14 17 7 12 2Z" fill="var(--color-tertiary)" fill-opacity="0.8"/>
+                    <circle cx="12" cy="12" r="2" fill="var(--color-primary)"/>
+                  </svg>
+                  <span class="event-detail-divider__line"></span>
+                </div>
+
+                <!-- Bloco Local do Encontro -->
+                <div class="event-detail-column">
+                  <span class="event-detail-tag">ONDE NOS ENCONTRAREMOS</span>
+                  <p class="event-detail-main">${escaparHtml(evento.local)}</p>
                   <span class="event-detail-sub">${escaparHtml(evento.enderecoCompleto)}</span>
                 </div>
               </div>
@@ -528,7 +539,6 @@
           </div>
           <div class="palette-info">
             <strong class="palette-name">${escaparHtml(cor.nome)}</strong>
-            <span class="palette-hex">${escaparHtml(cor.hex)}</span>
             <span class="palette-desc">${escaparHtml(cor.descricao)}</span>
           </div>
         </div>
@@ -575,7 +585,7 @@
         <section class="rsvp-card-wrapper paper-texture">
           <div class="rsvp-card__inner-border">
             <div class="section-title-wrap">
-              <span class="eyebrow-tag">RSVP &bull; SUA PRESENÇA</span>
+              <span class="eyebrow-tag">SUA PRESENÇA</span>
               <h2 class="section-title">Confirme sua Presença</h2>
               <p class="section-subtitle">
                 Por favor, confirme até <strong>${escaparHtml(dataLimiteFormatada)}</strong> para organizarmos tudo com carinho.

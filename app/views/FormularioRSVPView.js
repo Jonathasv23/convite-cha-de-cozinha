@@ -40,7 +40,7 @@ export class FormularioRSVPView {
       <section class="rsvp-card-wrapper paper-texture" id="rsvp-card-container">
         <div class="rsvp-card__inner-border">
           <div class="section-title-wrap">
-            <span class="eyebrow-tag">RSVP &bull; SUA PRESENÇA</span>
+            <span class="eyebrow-tag">SUA PRESENÇA</span>
             <h2 class="section-title">Confirme sua Presença</h2>
             <p class="section-subtitle">
               Sua presença é o nosso maior presente! Por favor, confirme até 

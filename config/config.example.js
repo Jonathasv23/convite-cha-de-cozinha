@@ -13,7 +13,7 @@ export const config = {
     titulo: 'Chá de Cozinha de Hevelyn & Jonathas',
     subtitulo: 'Um momento de celebração e carinho para preparar o novo lar',
     dataHoraISO: '2026-10-24T16:00:00',
-    dataHoraFormatada: '24 de Outubro de 2026 às 16:00',
+    dataHoraFormatada: 'Sábado, 24 de Outubro de 2026 às 16h00',
     local: 'Espaço Jardim das Camélias',
     enderecoCompleto: 'Rua das Flores, 120 - Jardim Primavera, São Paulo - SP',
     googleMapsUrl: 'https://www.google.com/maps/search/?api=1&query=Espa%C3%A7o+Jardim+das+Cam%C3%A9lias+Rua+das+Flores+120',
@@ -21,11 +21,11 @@ export const config = {
 
   // Paleta de Cores Sugerida (docs/DESIGN.md)
   paletaCores: [
-    { nome: 'Heritage Olive', hex: '#3D4A36', descricao: 'Verde botânico nobre' },
-    { nome: 'Warm Sage', hex: '#8A9A80', descricao: 'Sálvia suave e acolhedora' },
-    { nome: 'Champagne Gold', hex: '#C5A880', descricao: 'Dourado champanhe sutil' },
-    { nome: 'Ivory Parchment', hex: '#F8F7F2', descricao: 'Pergaminho marfim natural' },
-    { nome: 'Soft Linen', hex: '#D1C7B7', descricao: 'Linho rústico delicado' }
+    { nome: 'Verde Oliva', hex: '#3D4A36', descricao: 'Tom botânico nobre e acolhedor' },
+    { nome: 'Verde Sálvia', hex: '#8A9A80', descricao: 'Suavidade natural e leveza' },
+    { nome: 'Dourado Champanhe', hex: '#C5A880', descricao: 'Toque delicado e festivo' },
+    { nome: 'Marfim Natural', hex: '#F8F7F2', descricao: 'Clássico e aconchegante' },
+    { nome: 'Linho Suave', hex: '#D1C7B7', descricao: 'Elegância rústica e atemporal' }
   ],
 
   // Parâmetros Dinâmicos Padrão (utilizados como fallback caso o Firestore esteja inacessível)
