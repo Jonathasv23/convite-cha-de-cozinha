@@ -140,18 +140,20 @@ Todas as 7 fases do projeto foram concluídas, validadas e homologadas com 100% 
 - [x] Configuração dos índices compostos de consulta para `presentes` e `confirmacoes`.
 - [x] Inserção das credenciais oficiais de produção em `config/config.js`.
 - [x] Execução com sucesso das migrações (`001_initial_schema` e `002_seed_presentes`), populando configurações e os 20 presentes na nuvem.
-- [x] Commit das credenciais de produção no repositório Git local.
+- [x] Deploy realizado com sucesso no GitHub Pages com certificado HTTPS.
+- [x] Aplicação pública e painel administrativo 100% no ar e operacionais.
 
 ---
 
 ## 4. Fase Atual
 
-- **Configuração do Firebase de Produção Concluída** (Banco de dados ativo, regras publicadas, semente de 20 presentes gravada na nuvem).
+- **Deploy em Produção Concluído com Sucesso!** 🚀
+  - **Convite Público:** `https://jonathasv23.github.io/convite-cha-de-cozinha/`
+  - **Painel Administrativo:** `https://jonathasv23.github.io/convite-cha-de-cozinha/admin.html` (PIN Mestre: `0523`)
 
 ---
 
 ## 5. Próximo Passo Recomendado
 
-1. Autorizar o domínio `jonathasv23.github.io` em **Authentication -> Settings -> Authorized domains** no Firebase Console.
-2. Executar `git push origin main` para enviar os commits ao GitHub.
-3. Ativar o **GitHub Pages** nas configurações do repositório (`Settings -> Pages -> main -> / (root)`).
+1. Confirmar a autorização do domínio `jonathasv23.github.io` em **Authentication -> Settings -> Authorized domains** no Firebase Console.
+2. Realizar os testes funcionais de homologação diretamente no ambiente de produção.
