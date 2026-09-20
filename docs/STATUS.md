@@ -132,13 +132,26 @@ Todas as 7 fases do projeto foram concluídas, validadas e homologadas com 100% 
 
 ---
 
+### Integração com o Firebase de Produção
+- [x] Criação do projeto no Firebase Console (`convite-cha-hevelyn-jonathas`).
+- [x] Configuração e ativação do Firebase Authentication com provedor E-mail/Senha (`admin@convitedigital.local`).
+- [x] Criação do banco Cloud Firestore no datacenter de São Paulo (`southamerica-east1`).
+- [x] Aplicação das regras declarativas de segurança e LGPD em `database/firestore.rules`.
+- [x] Configuração dos índices compostos de consulta para `presentes` e `confirmacoes`.
+- [x] Inserção das credenciais oficiais de produção em `config/config.js`.
+- [x] Execução com sucesso das migrações (`001_initial_schema` e `002_seed_presentes`), populando configurações e os 20 presentes na nuvem.
+- [x] Commit das credenciais de produção no repositório Git local.
+
+---
+
 ## 4. Fase Atual
 
-- **Revisão de Segurança Pré-Publicação** (Concluída com 100% de Êxito - Sistema Auditado e Blindado).
+- **Configuração do Firebase de Produção Concluída** (Banco de dados ativo, regras publicadas, semente de 20 presentes gravada na nuvem).
 
 ---
 
 ## 5. Próximo Passo Recomendado
 
-Prosseguir para a etapa de publicação / deploy no GitHub Pages (Chat novo + prompt do passo 6).
-
+1. Autorizar o domínio `jonathasv23.github.io` em **Authentication -> Settings -> Authorized domains** no Firebase Console.
+2. Executar `git push origin main` para enviar os commits ao GitHub.
+3. Ativar o **GitHub Pages** nas configurações do repositório (`Settings -> Pages -> main -> / (root)`).
