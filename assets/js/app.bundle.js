@@ -12,7 +12,7 @@
 
 (function () {
   // Se os módulos ES6 já foram carregados com sucesso pelo navegador (via HTTP/HTTPS), não duplica a inicialização
-  if (window.__conviteIniciado) {
+  if (window.__conviteIniciado || (window.location.protocol !== 'file:' && !window.__bundleScriptCarregado)) {
     return;
   }
 

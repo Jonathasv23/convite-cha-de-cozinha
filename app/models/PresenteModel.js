@@ -172,7 +172,11 @@ export class PresenteModel {
    * @returns {Promise<object>} Presente cadastrado
    */
   static async cadastrarPresente({ nome, quantidadeTotal }) {
-    if (!nome || typeof nome !== 'string' || nome.trim().length < 3 || nome.trim().length > 80) {
+    if (!nome || typeof nome !== 'string') {
+      throw new Error('O nome do presente deve conter entre 3 e 80 caracteres.');
+    }
+    const nomeLimpo = nome.replace(/[<>]/g, '').trim();
+    if (nomeLimpo.length < 3 || nomeLimpo.length > 80) {
       throw new Error('O nome do presente deve conter entre 3 e 80 caracteres.');
     }
 
@@ -182,7 +186,7 @@ export class PresenteModel {
     }
 
     const novoItem = {
-      nome: nome.trim(),
+      nome: nomeLimpo,
       quantidade_total: qtd,
       quantidade_disponivel: qtd,
       ativo: true,

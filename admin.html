@@ -93,14 +93,31 @@
     try {
       const { AdminController } = await import('./app/controllers/AdminController.js');
       window.__adminIniciado = true;
-      const controller = new AdminController();
-      controller.inicializar();
+      if (!window.__adminControllerInstancia) {
+        const controller = new AdminController();
+        window.__adminControllerInstancia = controller;
+        controller.inicializar();
+      }
     } catch (e) {
       console.warn('Módulo ES6 administrativo não suportado diretamente neste protocolo. Utilizando carregamento autossuficiente.');
+      carregarAdminBundleFallback();
     }
   </script>
 
-  <!-- Script Autossuficiente de Compatibilidade (Garante funcionamento perfeito mesmo em duplo clique file:///) -->
-  <script src="assets/js/admin.bundle.js"></script>
+  <!-- Script Autossuficiente de Compatibilidade (Ativado exclusivamente no protocolo local file:/// ou caso os módulos falhem) -->
+  <script>
+    function carregarAdminBundleFallback() {
+      if (!window.__adminIniciado && !window.__adminBundleCarregado) {
+        window.__adminBundleCarregado = true;
+        const s = document.createElement('script');
+        s.src = 'assets/js/admin.bundle.js';
+        s.defer = true;
+        document.body.appendChild(s);
+      }
+    }
+    if (window.location.protocol === 'file:') {
+      carregarAdminBundleFallback();
+    }
+  </script>
 </body>
 </html>

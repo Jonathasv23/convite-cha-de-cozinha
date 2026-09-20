@@ -25,6 +25,7 @@ service cloud.firestore {
       allow read, update, delete: if request.auth != null;
       allow create: if request.resource.data.nome_convidado is string
                     && request.resource.data.nome_convidado.size() >= 2
+                    && request.resource.data.nome_convidado.size() <= 100
                     && request.resource.data.tipo_escolha in ['presente_item', 'pix_surpresa', 'apenas_presenca'];
     }
 
@@ -32,7 +33,9 @@ service cloud.firestore {
     match /nomes_confirmados/{nomeNormalizado} {
       allow get: if true;
       allow list: if request.auth != null;
-      allow create, update: if true;
+      allow create, update: if request.resource.data.nome_original is string
+                            && request.resource.data.nome_original.size() >= 2
+                            && request.resource.data.nome_original.size() <= 100;
       allow delete: if request.auth != null;
     }
     

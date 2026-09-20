@@ -28,6 +28,9 @@
       </div>
     </header>
 
+    <!-- Bloco de Contagem Regressiva Viva -->
+    <div id="countdown-section-wrapper" class="countdown-section-wrapper" aria-label="Contagem Regressiva"></div>
+
     <!-- Bloco 2: Conteúdo Principal e Formulário Integrado de RSVP -->
     <main id="main-content" class="main-content">
       <section id="rsvp-section" class="rsvp-section" aria-label="Confirmação de Presença">
@@ -58,14 +61,31 @@
     try {
       const { ConviteController } = await import('./app/controllers/ConviteController.js');
       window.__conviteIniciado = true;
-      const controller = new ConviteController();
-      controller.iniciar();
+      if (!window.__conviteControllerInstancia) {
+        const controller = new ConviteController();
+        window.__conviteControllerInstancia = controller;
+        controller.iniciar();
+      }
     } catch (e) {
       console.warn('Módulo ES6 não suportado diretamente neste protocolo. Utilizando carregamento autossuficiente.');
+      carregarBundleFallback();
     }
   </script>
 
-  <!-- Script Autossuficiente de Compatibilidade (Garante funcionamento perfeito mesmo em duplo clique file:///) -->
-  <script src="assets/js/app.bundle.js" defer></script>
+  <!-- Script Autossuficiente de Compatibilidade (Ativado exclusivamente no protocolo local file:/// ou caso os módulos falhem) -->
+  <script>
+    function carregarBundleFallback() {
+      if (!window.__conviteIniciado && !window.__bundleScriptCarregado) {
+        window.__bundleScriptCarregado = true;
+        const s = document.createElement('script');
+        s.src = 'assets/js/app.bundle.js';
+        s.defer = true;
+        document.body.appendChild(s);
+      }
+    }
+    if (window.location.protocol === 'file:') {
+      carregarBundleFallback();
+    }
+  </script>
 </body>
 </html>

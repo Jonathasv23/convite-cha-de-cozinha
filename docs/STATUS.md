@@ -119,14 +119,26 @@ Todas as 7 fases do projeto foram concluídas, validadas e homologadas com 100% 
 - [x] Finalização do `README.md` e preparação do repositório para deploy no GitHub Pages.
 - [x] Suíte de testes automatizados da Fase 7 com 15 asserções cobrindo a homologação completa (`node tests/fase7_tests.js`).
 
+### Revisão Abrangente de Segurança Pré-Publicação
+- [x] Auditoria estática e comportamental completa de segurança de código e persistência.
+- [x] Correção da incompatibilidade de senha do Firebase Auth (mínimo de 6 caracteres exigido pela API) vinculada ao PIN de tela (`config.adminAuth.password`).
+- [x] Implementação de autenticação REST administrativa via Identity Toolkit no executor de migrações (`database/migrations/run.js`) para suportar `request.auth != null`.
+- [x] Prevenção contra injeção de fórmulas em planilhas (CSV/DDE Injection) com prefixação de apóstrofo em `app/utils/export.js`.
+- [x] Reforço das regras de segurança declarativas no Cloud Firestore com limites estritos de tamanho de strings (`size() <= 100`).
+- [x] Sanitização preventiva de tags HTML nos models de entrada (`ConfirmacaoModel` e `PresenteModel`).
+- [x] Implementação de travas de instância única (singleton guards) nos controladores e isolamento seguro de scripts bundle no HTML.
+- [x] Inclusão de `rel="noopener noreferrer"` em todos os links externos `target="_blank"`.
+- [x] Bateria completa de 61 testes automatizados aprovada com 100% de sucesso.
+
 ---
 
 ## 4. Fase Atual
 
-- **Fase 7 - Homologação, Testes Completos de Aceitação e Preparação para Deploy** (Concluída com 100% de Êxito).
+- **Revisão de Segurança Pré-Publicação** (Concluída com 100% de Êxito - Sistema Auditado e Blindado).
 
 ---
 
 ## 5. Próximo Passo Recomendado
 
-Todas as fases de codificação previstas no `docs/PLANO.md` foram integralmente concluídas. A aplicação está pronta para o passo de validação de segurança final ou publicação no GitHub Pages.
+Prosseguir para a etapa de publicação / deploy no GitHub Pages (Chat novo + prompt do passo 6).
+

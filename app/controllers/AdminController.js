@@ -316,7 +316,10 @@ export class AdminController {
     if (isFirebaseConfigured() && auth && signInWithEmailAndPassword) {
       try {
         const emailAdmin = config.adminAuth?.email || 'admin@convitedigital.local';
-        await signInWithEmailAndPassword(auth, emailAdmin, pinLimpo);
+        // O Firebase Auth exige senhas com no mínimo 6 caracteres.
+        // Utiliza config.adminAuth.password se definida, ou o PIN (com sufixo seguro caso tenha menos de 6 caracteres).
+        const senhaFirebase = config.adminAuth?.password || (pinLimpo.length >= 6 ? pinLimpo : `${pinLimpo}_admin_auth`);
+        await signInWithEmailAndPassword(auth, emailAdmin, senhaFirebase);
       } catch (authErr) {
         // Log seguro: não expõe senha, apenas registra evento
         logError('AdminController.validarPin (Silent Auth Firebase)', authErr);
@@ -735,7 +738,10 @@ export class AdminController {
 // Inicialização automática no navegador
 if (typeof window !== 'undefined') {
   const iniciar = () => {
+    if (window.__adminControllerInstancia) return;
     const controller = new AdminController();
+    window.__adminControllerInstancia = controller;
+    window.__adminIniciado = true;
     controller.inicializar();
     window._adminController = controller;
   };

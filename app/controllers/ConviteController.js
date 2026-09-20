@@ -69,7 +69,12 @@ export class ConviteController {
       });
     }
 
-    // 2. Formulário de RSVP
+    // 2. Contagem Regressiva Viva
+    if (countdownContainer) {
+      ConviteView.renderizarCountdown(countdownContainer);
+    }
+
+    // 3. Formulário de RSVP
     if (rsvpContainer) {
       const dataFormatada = this.configuracoes.dataLimiteConfirmacao
         ? formatarDataExtenso(this.configuracoes.dataLimiteConfirmacao)
@@ -82,7 +87,7 @@ export class ConviteController {
       });
     }
 
-    // 3. Vitrine da Paleta de Cores (posicionada após a confirmação de presença)
+    // 4. Vitrine da Paleta de Cores (posicionada após a confirmação de presença)
     if (paletteContainer) {
       ConviteView.renderizarPaletaCores(paletteContainer, this.configuracoes.paletaCores);
     }
@@ -278,7 +283,10 @@ export class ConviteController {
 // Inicialização automática ao carregar a página index.html no navegador
 if (typeof window !== 'undefined' && typeof document !== 'undefined') {
   const inicializar = () => {
+    if (window.__conviteControllerInstancia) return;
     const controller = new ConviteController();
+    window.__conviteControllerInstancia = controller;
+    window.__conviteIniciado = true;
     controller.iniciar();
   };
 

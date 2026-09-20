@@ -11,7 +11,7 @@
 
 (function () {
   // Se os módulos ES6 já foram carregados com sucesso, não duplica a inicialização
-  if (window.__adminIniciado) {
+  if (window.__adminIniciado || (window.location.protocol !== 'file:' && !window.__adminBundleCarregado)) {
     return;
   }
 

@@ -194,7 +194,7 @@ export class PainelNoivaView {
             </div>
           </div>
           <div class="admin-topbar-actions no-print">
-            <a href="index.html" target="_blank" class="btn-secondary btn-sm" title="Abrir convite público em nova aba">
+            <a href="index.html" target="_blank" rel="noopener noreferrer" class="btn-secondary btn-sm" title="Abrir convite público em nova aba">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
                 <polyline points="15 3 21 3 21 9"></polyline>

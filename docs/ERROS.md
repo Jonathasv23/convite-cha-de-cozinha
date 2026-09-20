@@ -81,3 +81,21 @@ Sempre que um erro for solucionado, adicione um novo registro no final deste doc
 - Causa: Os métodos de renderização de telas de sucesso (`FormularioRSVPView.renderizarSucesso`) esperavam um nó do DOM capaz de vincular manipuladores de evento de clique em botões internos (`querySelector('#btn-copiar-pix')`). O teste inicial passou um objeto literal raso `{ innerHTML: '' }` desprovido de suporte aos seletores da API DOM.
 - Solução aplicada: Reutilizou-se a classe `MockElement` (já validada na Fase 4) com implementação dummy de `querySelector`, `querySelectorAll`, `addEventListener` e `classList`, permitindo a execução pura e desacoplada em ambiente headless Node.js sem necessidade de bibliotecas de emulação pesadas como JSDOM.
 - Como evitar no futuro: Padronizar o mock de nós do DOM em suites de teste Node.js sempre instanciando `MockElement` unificado em vez de objetos literais rasos.
+
+---
+
+## 20/09/2026 - Incompatibilidade de tamanho de senha no Firebase Auth e concorrência modular/bundle
+
+- Sintoma: Rejeição no Firebase Authentication ao tentar cadastrar o usuário administrativo com o PIN de 4 dígitos (`auth/weak-password`), quebra de permissões (`permission-denied`) no Firestore e risco de contagem duplicada de tentativas de PIN por concorrência de scripts modular e bundle em ambiente HTTP.
+- Causa: 
+  1. O Firebase Authentication rejeita senhas com menos de 6 caracteres. O PIN padrão do sistema possui 4 dígitos (`0523`), gerando incompatibilidade com a autenticação silenciosa necessária para satisfazer a regra `request.auth != null` no Firestore.
+  2. O script de migrações (`run.js`) enviava requisições REST sem token `Authorization: Bearer`, sendo bloqueado pelo Firestore em ambiente de nuvem real.
+  3. A presença simultânea da tag `<script type="module">` e da inclusão direta de bundles poderia disparar dupla execução de manipuladores de eventos em navegadores com comportamento não-padrão.
+  4. Campos de exportação CSV não continham proteção contra injeção de fórmulas (DDE Injection).
+- Solução aplicada:
+  1. Implementou-se suporte a `config.adminAuth.password` (mínimo 6 caracteres) com derivação automática (`${pin}_admin_auth`), mantendo a usabilidade simples do PIN de 4 dígitos para a noiva.
+  2. Implementou-se helper REST para obtenção de `idToken` via Identity Toolkit em `database/migrations/run.js`, injetando `Authorization: Bearer ${idToken}` nas operações de banco.
+  3. Adicionaram-se travas de instância única (singleton guards) em `AdminController` e `ConviteController`, e condicionou-se a ativação de bundles estritamente ao protocolo `file:///` ou fallback de erro.
+  4. Adicionou-se sanitização contra injeção de fórmulas em `app/utils/export.js`, remoção de delimitadores de tags `<>` em `ConfirmacaoModel` e `PresenteModel`, e limite de tamanho de strings (`size() <= 100`) em `database/firestore.rules`.
+- Como evitar no futuro: Sempre alinhar as restrições mínimas de provedores de autenticação (OAuth/Firebase) com os mecanismos de UX locais, proteger saídas tabulares contra interpretação de fórmulas e manter idempotência estrita em pontos de entrada do DOM.
+

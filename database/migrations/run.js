@@ -78,9 +78,17 @@ function toFirestoreValue(val) {
  * Quando em dry-run ou credenciais placeholder, opera em memória com logs.
  * Quando configurado com Firebase real, opera via Firestore REST API nativa.
  */
-function createExecutionContext(isDry, projectId, apiKey) {
+function createExecutionContext(isDry, projectId, apiKey, idToken = null) {
   const isReal = !isDry && apiKey && apiKey !== 'FIREBASE_API_KEY_PLACEHOLDER';
   const memoryStore = new Map();
+
+  const getHeaders = () => {
+    const headers = { 'Content-Type': 'application/json' };
+    if (idToken) {
+      headers['Authorization'] = `Bearer ${idToken}`;
+    }
+    return headers;
+  };
 
   return {
     isRealCloud: isReal,
@@ -91,7 +99,7 @@ function createExecutionContext(isDry, projectId, apiKey) {
       }
       try {
         const url = `https://firestore.googleapis.com/v1/projects/${projectId}/databases/(default)/documents/_migrations/${migrationId}?key=${apiKey}`;
-        const res = await fetch(url);
+        const res = await fetch(url, { headers: getHeaders() });
         if (res.status === 404) return null;
         if (!res.ok) throw new Error(`HTTP ${res.status}: ${await res.text()}`);
         return await res.json();
@@ -122,7 +130,7 @@ function createExecutionContext(isDry, projectId, apiKey) {
 
       await fetch(url, {
         method: 'PATCH',
-        headers: { 'Content-Type': 'application/json' },
+        headers: getHeaders(),
         body: JSON.stringify({ fields })
       });
     },
@@ -139,7 +147,7 @@ function createExecutionContext(isDry, projectId, apiKey) {
       }
       const res = await fetch(url, {
         method: 'PATCH',
-        headers: { 'Content-Type': 'application/json' },
+        headers: getHeaders(),
         body: JSON.stringify({ fields })
       });
       if (!res.ok) throw new Error(`Falha ao gravar ${collection}/${docId}: HTTP ${res.status}`);
@@ -159,7 +167,7 @@ function createExecutionContext(isDry, projectId, apiKey) {
       }
       const res = await fetch(url, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: getHeaders(),
         body: JSON.stringify({ fields })
       });
       if (!res.ok) throw new Error(`Falha ao inserir em ${collection}: HTTP ${res.status}`);
@@ -168,6 +176,34 @@ function createExecutionContext(isDry, projectId, apiKey) {
       return parts[parts.length - 1] || autoId;
     }
   };
+}
+
+/**
+ * Autentica o administrador via REST API (Identity Toolkit) para obter idToken.
+ * Necessário para satisfazer as Firestore Security Rules (request.auth != null) na nuvem real.
+ */
+async function obterTokenAutenticado(apiKey, email, password) {
+  if (!apiKey || apiKey === 'FIREBASE_API_KEY_PLACEHOLDER' || !email || !password) {
+    return null;
+  }
+  try {
+    const authUrl = `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${apiKey}`;
+    const res = await fetch(authUrl, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email, password, returnSecureToken: true })
+    });
+    if (!res.ok) {
+      const erro = await res.json().catch(() => ({}));
+      console.warn(`[AUTH] Não foi possível autenticar o administrador (${erro?.error?.message || res.statusText}).`);
+      return null;
+    }
+    const dados = await res.json();
+    return dados.idToken;
+  } catch (err) {
+    console.warn(`[AUTH] Falha ao contatar serviço de autenticação:`, err.message);
+    return null;
+  }
 }
 
 /**
@@ -181,6 +217,7 @@ async function main() {
   const apiKey = config.firebaseConfig?.apiKey;
   const projectId = config.firebaseConfig?.projectId;
   const isPlaceholder = apiKey === 'FIREBASE_API_KEY_PLACEHOLDER';
+  let idToken = null;
 
   if (isPlaceholder && !isDryRun) {
     console.log('[AVISO] Chave do Firebase em config/config.js ainda é o placeholder de demonstração.');
@@ -192,10 +229,18 @@ async function main() {
     console.log('-------------------------------------------------------------------');
   } else {
     console.log(`[CONEXÃO] Conectando ao projeto Firebase: ${projectId}`);
+    const adminEmail = config.adminAuth?.email;
+    const adminPass = config.adminAuth?.password;
+    if (adminEmail && adminPass) {
+      idToken = await obterTokenAutenticado(apiKey, adminEmail, adminPass);
+      if (idToken) {
+        console.log(`[AUTH] Administrador autenticado com sucesso via Firebase Auth.`);
+      }
+    }
     console.log('-------------------------------------------------------------------');
   }
 
-  const context = createExecutionContext(isDryRun || isPlaceholder, projectId, apiKey);
+  const context = createExecutionContext(isDryRun || isPlaceholder, projectId, apiKey, idToken);
   let executadas = 0;
   let puladas = 0;
 

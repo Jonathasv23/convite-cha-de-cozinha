@@ -147,7 +147,7 @@ export class ConfirmacaoModel {
       throw new Error('Modalidade de confirmação inválida.');
     }
 
-    const nomeHigienizado = nomeConvidado.trim().replace(/\s+/g, ' ');
+    const nomeHigienizado = nomeConvidado.replace(/[<>]/g, '').trim().replace(/\s+/g, ' ');
     const nomeNorm = normalizarNome(nomeHigienizado);
 
     // 2. Se a escolha for presente físico, delega à transação atômica

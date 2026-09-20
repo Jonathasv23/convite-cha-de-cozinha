@@ -60,7 +60,13 @@ export function formatarDataHoraCsv(dataVal) {
  */
 export function sanitizarCampoCsv(valor) {
   if (valor === null || valor === undefined) return '';
-  const str = String(valor).trim();
+  let str = String(valor).trim();
+
+  // Prevenção contra CSV/Formula Injection (DDE Injection em Excel/Planilhas)
+  // Se o valor iniciar com =, +, -, @ ou caracteres de controle, prefixa com apóstrofo
+  if (/^[=\+\-@\t\r]/.test(str)) {
+    str = `'${str}`;
+  }
 
   // Se contiver ponto e vírgula, aspas duplas ou quebras de linha, encapsula em aspas duplas
   if (str.includes(';') || str.includes('"') || str.includes('\n') || str.includes('\r')) {

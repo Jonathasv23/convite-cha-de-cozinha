@@ -132,7 +132,7 @@ Para conectar o site à sua base de dados oficial no Firebase:
 5. **Ativar Firebase Auth:**
    - Acesse **Build** -> **Authentication** -> **Começar**.
    - Na aba **Sign-in method**, ative o provedor **E-mail/senha**.
-   - Na aba **Users**, cadastre a conta da administradora definida em `config/config.js` (`adminAuth.email`: `admin@convitedigital.local`) com a senha igual ao PIN mestre (`0523`).
+   - Na aba **Users**, cadastre a conta da administradora definida em `config/config.js` (`adminAuth.email`: `admin@convitedigital.local`) com a senha configurada em `adminAuth.password` (ex: `admin_cha_2026`). *Nota: O Firebase Authentication exige senhas com no mínimo 6 caracteres; o sistema utiliza essa senha silenciosamente ao validar o PIN de 4 dígitos digitado na tela.*
 6. **Inserir Credenciais Públicas:**
    - Nas configurações do projeto (**Configurações do Projeto** -> **Geral** -> **Seus aplicativos** -> adicione um app Web `</>`).
    - Copie o objeto `firebaseConfig` e cole no arquivo `config/config.js`.

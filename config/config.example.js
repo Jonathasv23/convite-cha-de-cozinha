@@ -53,8 +53,11 @@ export const config = {
     appId: "1:000000000000:web:0000000000000000000000"
   },
 
-  // Credencial Administrativa para Auth Silencioso no Firebase (vinculada ao PIN Mestre)
+  // Credencial Administrativa para Auth Silencioso no Firebase (vinculada ao painel)
+  // NOTA DE SEGURANÇA: O Firebase Authentication exige senhas com no mínimo 6 caracteres.
+  // Cadastre exatamente este mesmo e-mail e senha no console do Firebase (Authentication -> Users).
   adminAuth: {
-    email: "admin@convitedigital.local"
+    email: "admin@convitedigital.local",
+    password: "admin_cha_2026"
   }
 };
