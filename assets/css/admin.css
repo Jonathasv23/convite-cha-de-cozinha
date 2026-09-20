@@ -206,12 +206,41 @@ body {
 .admin-branding {
   display: flex;
   align-items: center;
-  gap: 0.875rem;
+  gap: 1rem;
+}
+
+.admin-botanical-monogram {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 58px;
+  height: 58px;
+  flex-shrink: 0;
+}
+
+.admin-botanical-monogram__wreath {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.admin-botanical-monogram__initials {
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  font-weight: 500;
+  font-style: italic;
+  color: var(--color-primary);
+  letter-spacing: 0.05em;
+  z-index: 2;
+  margin-top: 1px;
 }
 
 .admin-monogram-mini {
-  width: 44px;
-  height: 44px;
+  width: 48px;
+  height: 48px;
   border-radius: var(--rounded-full);
   background-color: var(--color-surface-container-low);
   border: 1px solid var(--color-tertiary);

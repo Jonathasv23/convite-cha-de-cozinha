@@ -160,7 +160,34 @@ export class PainelNoivaView {
       <header class="admin-topbar">
         <div class="admin-topbar-inner">
           <div class="admin-branding">
-            <div class="admin-monogram-mini">H & J</div>
+            <div class="admin-botanical-monogram" aria-hidden="true">
+              <svg class="admin-botanical-monogram__wreath" viewBox="0 0 160 160" width="56" height="56" fill="none">
+                <!-- Círculo Guia Delicado -->
+                <circle cx="80" cy="80" r="70" stroke="var(--color-border-linen, #D1C7B7)" stroke-width="1" stroke-dasharray="3 3" />
+                <circle cx="80" cy="80" r="66" stroke="var(--color-tertiary, #C5A880)" stroke-width="0.75" stroke-opacity="0.6" />
+                
+                <!-- Folhagens e Ramos Botânicos Esquerda -->
+                <path d="M40 110 C30 85 45 55 70 30 C65 45 50 65 48 85 C46 100 42 106 40 110Z" fill="var(--color-secondary, #8A9A80)" fill-opacity="0.25" />
+                <path d="M40 110 Q50 90 62 76 Q52 70 44 76" stroke="var(--color-primary, #3D4A36)" stroke-width="1.2" stroke-linecap="round" />
+                <path d="M48 95 Q38 88 34 94 Q42 100 48 95" fill="var(--color-secondary, #8A9A80)" fill-opacity="0.4" stroke="var(--color-primary, #3D4A36)" stroke-width="0.8" />
+                <path d="M58 80 Q52 68 45 74 Q52 82 58 80" fill="var(--color-secondary, #8A9A80)" fill-opacity="0.4" stroke="var(--color-primary, #3D4A36)" stroke-width="0.8" />
+                <path d="M68 64 Q66 52 56 56 Q60 66 68 64" fill="var(--color-secondary, #8A9A80)" fill-opacity="0.4" stroke="var(--color-primary, #3D4A36)" stroke-width="0.8" />
+                
+                <!-- Folhagens e Ramos Botânicos Direita -->
+                <path d="M120 110 C130 85 115 55 90 30 C95 45 110 65 112 85 C114 100 118 106 120 110Z" fill="var(--color-secondary, #8A9A80)" fill-opacity="0.25" />
+                <path d="M120 110 Q110 90 98 76 Q108 70 116 76" stroke="var(--color-primary, #3D4A36)" stroke-width="1.2" stroke-linecap="round" />
+                <path d="M112 95 Q122 88 126 94 Q118 100 112 95" fill="var(--color-secondary, #8A9A80)" fill-opacity="0.4" stroke="var(--color-primary, #3D4A36)" stroke-width="0.8" />
+                <path d="M102 80 Q108 68 115 74 Q108 82 102 80" fill="var(--color-secondary, #8A9A80)" fill-opacity="0.4" stroke="var(--color-primary, #3D4A36)" stroke-width="0.8" />
+                <path d="M92 64 Q94 52 104 56 Q100 66 92 64" fill="var(--color-secondary, #8A9A80)" fill-opacity="0.4" stroke="var(--color-primary, #3D4A36)" stroke-width="0.8" />
+
+                <!-- Pequenos Acentos Florais -->
+                <circle cx="80" cy="24" r="2.5" fill="var(--color-tertiary, #C5A880)" />
+                <circle cx="75" cy="26" r="1.5" fill="var(--color-secondary, #8A9A80)" />
+                <circle cx="85" cy="26" r="1.5" fill="var(--color-secondary, #8A9A80)" />
+                <circle cx="80" cy="136" r="2.5" fill="var(--color-tertiary, #C5A880)" />
+              </svg>
+              <span class="admin-botanical-monogram__initials">H &amp; J</span>
+            </div>
             <div>
               <span class="admin-badge-label">PAINEL ADMINISTRATIVO</span>
               <h1 class="admin-title">Chá de Cozinha de ${escaparHtml(noivos)}</h1>
