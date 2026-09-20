@@ -219,12 +219,21 @@ export class AdminController {
 
     const form = document.getElementById('form-pin-gate');
     const input = document.getElementById('pin-input');
+    const btn = document.getElementById('btn-entrar-pin');
 
-    if (form && input) {
-      form.addEventListener('submit', (e) => {
-        e.preventDefault();
-        this.validarPin(input.value);
-      });
+    const acaoEntrar = (e) => {
+      if (e) e.preventDefault();
+      const val = input ? input.value : '';
+      this.validarPin(val);
+    };
+
+    if (form) {
+      form.onsubmit = acaoEntrar;
+    }
+    if (btn) {
+      btn.onclick = acaoEntrar;
+    }
+    if (input) {
       input.focus();
     }
   }
@@ -285,7 +294,7 @@ export class AdminController {
     }
 
     const pinLimpo = pinDigitado.trim();
-    const pinCorreto = String(config.admin?.pinMestrePadrao || '2026');
+    const pinCorreto = String(config.admin?.pinMestrePadrao || '0523');
 
     if (pinLimpo !== pinCorreto) {
       this._registrarTentativaInvalida();

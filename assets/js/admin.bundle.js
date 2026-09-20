@@ -32,7 +32,7 @@
       mensagemBoasVindas: 'É com imensa alegria que convidamos você para compartilhar este momento tão especial conosco. Venha celebrar o amor e o início da nossa nova história!'
     },
     admin: {
-      pinMestrePadrao: '2026',
+      pinMestrePadrao: '0523',
       maxTentativasPin: 5,
       bloqueioMinutos: 5
     }
@@ -139,6 +139,8 @@
     } catch (e) {
       return '';
     }
+  }
+
   function traduzirTipoEscolha(tipoEscolha) {
     switch (tipoEscolha) {
       case 'presente_item': return 'Presente Físico';
@@ -374,11 +376,21 @@
 
       const form = document.getElementById('form-pin-gate');
       const input = document.getElementById('pin-input');
-      if (form && input) {
-        form.onsubmit = (e) => {
-          e.preventDefault();
-          this.validarPin(input.value);
-        };
+      const btn = document.getElementById('btn-entrar-pin');
+
+      const acaoEntrar = (e) => {
+        if (e) e.preventDefault();
+        const val = input ? input.value : '';
+        this.validarPin(val);
+      };
+
+      if (form) {
+        form.onsubmit = acaoEntrar;
+      }
+      if (btn) {
+        btn.onclick = acaoEntrar;
+      }
+      if (input) {
         input.focus();
       }
     }

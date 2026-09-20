@@ -159,9 +159,9 @@ test('5. AdminController: Validação de PIN Mestre e Gestão de Sessão', async
   assert.strictEqual(controller.estaAutenticado(), false, 'Não deve estar autenticado após erro');
   assert.strictEqual(controller.obterTentativasRestantes(), 4, 'Deve restar 4 tentativas');
 
-  // Teste de PIN correto ('2026')
-  const pinCorreto = await controller.validarPin('2026');
-  assert.strictEqual(pinCorreto, true, 'PIN 2026 deve ser aceito');
+  // Teste de PIN correto ('0523')
+  const pinCorreto = await controller.validarPin('0523');
+  assert.strictEqual(pinCorreto, true, 'PIN 0523 deve ser aceito');
   assert.strictEqual(controller.estaAutenticado(), true, 'Deve registrar sessão ativa em sessionStorage');
   assert.strictEqual(controller.obterTentativasRestantes(), 5, 'Contador deve ser resetado após sucesso');
 

@@ -59,4 +59,19 @@ Sempre que um erro for solucionado, adicione um novo registro no final deste doc
   2. Ajustou-se `ConfirmacaoModel.confirmarPresenca` para encapsular a resposta da reserva atômica mesclando `{ ...resultadoReserva, nomeConvidado, tipoEscolha }`, unificando a estrutura do objeto retornado em todas as 3 modalidades.
 - Como evitar no futuro: Padronizar interfaces de componentes com aliases semânticos e garantir contratos de retorno estritamente simétricos entre diferentes ramos de execução condicional em models de domínio.
 
+---
+
+## 20/09/2026 - Erro de sintaxe no admin.bundle.js e bloqueio de acesso ao painel no protocolo file:///
+
+- Sintoma: Ao abrir o `admin.html` diretamente por duplo clique no navegador Edge/Chrome via protocolo `file:///C:/.../admin.html`, digitar o PIN mestre e clicar no botão "Acessar Painel", a interface permanecia estática e não avançava para o painel da noiva.
+- Causa: 
+  1. Durante a adição de helpers de exportação CSV na Fase 6, a chave de encerramento da função `formatarParaInputDatetime` em `assets/js/admin.bundle.js` foi omitida, gerando `SyntaxError: Unexpected token ')'` que impedia o motor JavaScript do navegador de compilar e executar o bundle autônomo.
+  2. Como o protocolo `file:///` bloqueia tags `<script type="module">` por política nativa de CORS em navegadores Chromium, a falha de compilação do bundle deixava o formulário estático sem manipuladores de evento ativos.
+- Solução aplicada: 
+  1. Restaurou-se o fechamento da função `formatarParaInputDatetime` no `assets/js/admin.bundle.js`, validando com `node -c assets/js/admin.bundle.js` (exit code 0).
+  2. Reforçou-se a vinculação de eventos no formulário e no botão `#btn-entrar-pin` em ambos os controladores.
+  3. Atualizou-se o PIN Mestre padrão do sistema de `2026` para `0523` em `config/config.js`, `config/config.example.js`, `app/controllers/AdminController.js`, `assets/js/admin.bundle.js` e na suíte de testes.
+- Como evitar no futuro: Sempre executar a verificação estática de sintaxe (`node -c <arquivo>`) após edições em bundles ou scripts compilados e testar a abertura em protocolo `file:///` além do Live Server.
+
+
 

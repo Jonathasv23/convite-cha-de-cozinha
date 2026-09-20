@@ -37,7 +37,7 @@ export const config = {
 
   // Segurança e Autenticação Administrativa
   admin: {
-    pinMestrePadrao: '2026', // PIN numérico padrão para liberação da visão administrativa
+    pinMestrePadrao: '0523', // PIN numérico padrão para liberação da visão administrativa
     maxTentativasPin: 5,
     bloqueioMinutos: 5,
   },
