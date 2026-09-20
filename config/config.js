@@ -43,14 +43,13 @@ export const config = {
   },
 
   // Identificadores Públicos do Firebase Web SDK v10+
-  // Insira as chaves do seu projeto Firebase Spark antes do deploy
   firebaseConfig: {
-    apiKey: "FIREBASE_API_KEY_PLACEHOLDER",
-    authDomain: "cha-de-cozinha-helena-gabriel.firebaseapp.com",
-    projectId: "cha-de-cozinha-helena-gabriel",
-    storageBucket: "cha-de-cozinha-helena-gabriel.appspot.com",
-    messagingSenderId: "123456789012",
-    appId: "1:123456789012:web:abcdef1234567890abcdef"
+    apiKey: "AIzaSyDSfN6qY_PF7c2gHxnIVKD_oxuYQSF3M1Y",
+    authDomain: "convite-cha-hevelyn-jonathas.firebaseapp.com",
+    projectId: "convite-cha-hevelyn-jonathas",
+    storageBucket: "convite-cha-hevelyn-jonathas.firebasestorage.app",
+    messagingSenderId: "532073553257",
+    appId: "1:532073553257:web:2bf85b8797f03eae0bf1f8"
   },
 
   // Credencial Administrativa para Auth Silencioso no Firebase (vinculada ao painel)
