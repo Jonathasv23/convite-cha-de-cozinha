@@ -1,46 +1,306 @@
 /* ==========================================================================
-   Folha de Estilos para Mídia de Impressão (@media print)
+   Folha de Estilos Especializada para Mídia de Impressão (@media print)
+   Sistema: Convite Digital e Lista de Presentes - Chá de Cozinha
    Identidade: Botanical Heritage Atelier
+   Diretrizes: FSD Seções 6.2.6, 22.1, 26
    ========================================================================== */
 
+@page {
+  /* Margens padronizadas de documento formal e papelaria fina */
+  margin: 1.5cm;
+  size: A4 portrait;
+}
+
 @media print {
-  /* Ocultar elementos operacionais e de navegação */
+  /* ------------------------------------------------------------------------
+     1. Reset e Ocultação de Controles Operacionais e de Navegação
+     ------------------------------------------------------------------------ */
+  *,
+  *::before,
+  *::after {
+    background: transparent !important;
+    box-shadow: none !important;
+    text-shadow: none !important;
+    transition: none !important;
+    animation: none !important;
+  }
+
+  /* Ocultar elementos operacionais, gates, modais, formulários e botões */
   .no-print,
   button,
-  .admin-header-actions,
+  input,
+  textarea,
+  select,
+  .admin-topbar,
+  .admin-topbar-actions,
   .admin-pin-overlay,
-  .form-container,
-  .toast-container {
+  .pin-gate-overlay,
+  .admin-modal-backdrop,
+  .toast-container,
+  #admin-toast-container,
+  #dashboard-metrics,
+  .dashboard-section,
+  #secao-configuracoes-wrap,
+  #secao-novo-presente-wrap,
+  .section-header,
+  .table-actions,
+  .btn-action-liberar,
+  .th-acoes,
+  .td-acoes,
+  .admin-footer {
     display: none !important;
+    visibility: hidden !important;
   }
 
+  /* ------------------------------------------------------------------------
+     2. Configuração Base da Folha Impressa
+     ------------------------------------------------------------------------ */
+  html,
   body {
     background: #ffffff !important;
-    color: #000000 !important;
-    font-size: 11pt;
+    color: #1b1c19 !important;
+    font-family: 'Manrope', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
+    font-size: 10pt !important;
+    line-height: 1.4 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
   }
 
-  .admin-container {
+  .admin-container,
+  .admin-main,
+  .admin-card-section,
+  #guest-table-container {
+    width: 100% !important;
     max-width: 100% !important;
     margin: 0 !important;
     padding: 0 !important;
+    border: none !important;
+    background: transparent !important;
+    box-shadow: none !important;
+    display: block !important;
   }
 
+  /* ------------------------------------------------------------------------
+     3. Cabeçalho Oficial de Impressão (.print-header)
+     ------------------------------------------------------------------------ */
   .print-header {
     display: block !important;
-    margin-bottom: 20px;
-    border-bottom: 1px solid #333333;
-    padding-bottom: 10px;
+    margin-bottom: 1.25rem !important;
+    padding-bottom: 0.875rem !important;
+    border-bottom: 2px solid #273321 !important;
   }
 
-  table {
+  .print-header-top {
+    margin-bottom: 0.5rem !important;
+  }
+
+  .print-title {
+    font-family: 'EB Garamond', Georgia, serif !important;
+    font-size: 22pt !important;
+    font-weight: 500 !important;
+    color: #273321 !important;
+    margin: 0 0 0.25rem 0 !important;
+    line-height: 1.2 !important;
+    letter-spacing: -0.01em !important;
+  }
+
+  .print-subtitle {
+    font-family: 'Manrope', sans-serif !important;
+    font-size: 9.5pt !important;
+    color: #545e50 !important;
+    margin: 0 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.06em !important;
+    font-weight: 600 !important;
+  }
+
+  .print-meta {
+    display: flex !important;
+    justify-content: space-between !important;
+    font-size: 8.5pt !important;
+    color: #444841 !important;
+    margin-top: 0.5rem !important;
+    padding-top: 0.35rem !important;
+    border-top: 1px dashed #d1c7b7 !important;
+  }
+
+  /* ------------------------------------------------------------------------
+     4. Tabela de Convidados Diagramada
+     ------------------------------------------------------------------------ */
+  .table-responsive {
+    overflow: visible !important;
+    border: none !important;
+  }
+
+  .admin-table {
     width: 100% !important;
     border-collapse: collapse !important;
+    margin-top: 0.75rem !important;
+    font-size: 9pt !important;
   }
 
-  th, td {
-    border: 1px solid #cccccc !important;
-    padding: 6px 8px !important;
-    page-break-inside: avoid;
+  .admin-table thead {
+    display: table-header-group !important;
+  }
+
+  .admin-table thead tr {
+    background-color: #f4f3ef !important;
+    border-top: 1.5pt solid #273321 !important;
+    border-bottom: 1.5pt solid #273321 !important;
+  }
+
+  .admin-table th {
+    font-family: 'Manrope', sans-serif !important;
+    font-size: 8pt !important;
+    font-weight: 700 !important;
+    letter-spacing: 0.08em !important;
+    text-transform: uppercase !important;
+    color: #20281d !important;
+    padding: 6pt 8pt !important;
+    border: none !important;
+    border-bottom: 1.5pt solid #273321 !important;
+    text-align: left !important;
+  }
+
+  .admin-table tbody tr {
+    border-bottom: 1px solid #e3e3de !important;
+    page-break-inside: avoid !important;
+  }
+
+  .admin-table tbody tr.row-even {
+    background-color: #ffffff !important;
+  }
+
+  .admin-table tbody tr.row-odd {
+    background-color: #faf9f5 !important;
+  }
+
+  .admin-table td {
+    padding: 6pt 8pt !important;
+    vertical-align: middle !important;
+    color: #1b1c19 !important;
+    border: none !important;
+    border-bottom: 1px solid #e3e3de !important;
+  }
+
+  .guest-name-wrap {
+    display: flex !important;
+    align-items: center !important;
+    gap: 0.5rem !important;
+  }
+
+  .guest-avatar-mini {
+    width: 20px !important;
+    height: 20px !important;
+    font-size: 7.5pt !important;
+    border: 1px solid #757870 !important;
+    background-color: #f0efea !important;
+    color: #273321 !important;
+    border-radius: 50% !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    font-weight: 700 !important;
+  }
+
+  .guest-name-text {
+    font-weight: 600 !important;
+    color: #1b1c19 !important;
+  }
+
+  /* Badges em tons sóbrios para impressão */
+  .choice-badge {
+    display: inline-block !important;
+    padding: 2pt 6pt !important;
+    border-radius: 3pt !important;
+    font-size: 8pt !important;
+    font-weight: 600 !important;
+    border: 1px solid #999999 !important;
+    background-color: #fbfbfa !important;
+    color: #20281d !important;
+  }
+
+  .choice-badge svg {
+    display: none !important;
+  }
+
+  .badge-presente {
+    border-color: #3d4a36 !important;
+    background-color: #f2f5f0 !important;
+    color: #273321 !important;
+  }
+
+  .badge-pix {
+    border-color: #a08458 !important;
+    background-color: #fdfaf5 !important;
+    color: #3f2d0f !important;
+  }
+
+  .badge-presenca {
+    border-color: #888888 !important;
+    background-color: #f4f4f4 !important;
+    color: #444841 !important;
+  }
+
+  .td-data time {
+    font-size: 8pt !important;
+    color: #444841 !important;
+  }
+
+  /* ------------------------------------------------------------------------
+     5. Resumo Consolidado no Rodapé da Impressão (.print-summary)
+     ------------------------------------------------------------------------ */
+  .print-summary {
+    display: block !important;
+    margin-top: 1.5rem !important;
+    padding: 10pt 12pt !important;
+    border: 1pt solid #d1c7b7 !important;
+    background-color: #faf9f4 !important;
+    page-break-inside: avoid !important;
+    border-radius: 4pt !important;
+  }
+
+  .print-summary-title {
+    font-family: 'EB Garamond', Georgia, serif !important;
+    font-size: 13pt !important;
+    font-weight: 600 !important;
+    color: #273321 !important;
+    margin-bottom: 6pt !important;
+    border-bottom: 1px solid #e3e3de !important;
+    padding-bottom: 3pt !important;
+  }
+
+  .print-summary-grid {
+    display: grid !important;
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 6pt 16pt !important;
+    font-size: 8.5pt !important;
+  }
+
+  .print-summary-item {
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    border-bottom: 1px dotted #dbdad5 !important;
+    padding-bottom: 2pt !important;
+  }
+
+  .print-summary-label {
+    color: #444841 !important;
+  }
+
+  .print-summary-val {
+    font-weight: 700 !important;
+    color: #273321 !important;
+  }
+
+  .print-footer-note {
+    margin-top: 8pt !important;
+    font-size: 7.5pt !important;
+    color: #757870 !important;
+    text-align: center !important;
+    font-style: italic !important;
   }
 }

@@ -448,20 +448,48 @@ export class PainelNoivaView {
   }
 
   /**
-   * Renderiza a tabela de convidados confirmados com suas respectivas escolhas e ações (FSD 6.2.5).
+   * Renderiza a tabela de convidados confirmados com suas respectivas escolhas e ações (FSD 6.2.5, 6.2.6, 22.1, 22.2).
    * 
    * @param {Array<object>} confirmacoes - Lista de confirmações
+   * @param {object} [opcoes] - Opções de renderização
+   * @param {string} [opcoes.noivos] - Nomes dos noivos para cabeçalho impresso
    * @returns {string} HTML
    */
-  static templateTabelaConvidados(confirmacoes = []) {
+  static templateTabelaConvidados(confirmacoes = [], { noivos = 'Hevelyn & Jonathas' } = {}) {
+    const totalConfirmados = confirmacoes.length;
+    const totalPresentesFisicos = confirmacoes.filter(c => c.tipo_escolha === 'presente_item').length;
+    const totalPix = confirmacoes.filter(c => c.tipo_escolha === 'pix_surpresa').length;
+    const totalApenasPresenca = confirmacoes.filter(c => c.tipo_escolha === 'apenas_presenca').length;
+    const dataEmissao = formatarDataHoraPtBr(new Date());
+
     return `
       <section class="admin-card-section" id="secao-convidados">
+        <!-- Cabeçalho Exclusivo para Mídia de Impressão (@media print) -->
+        <div class="print-header">
+          <div class="print-header-top">
+            <h1 class="print-title">Chá de Cozinha &bull; ${escaparHtml(noivos)}</h1>
+            <p class="print-subtitle">Relatório Consolidado de Confirmação de Presença e Lista de Presentes</p>
+          </div>
+          <div class="print-meta">
+            <span><strong>Data de Emissão:</strong> ${dataEmissao}</span>
+            <span><strong>Total de Registros:</strong> ${totalConfirmados}</span>
+          </div>
+        </div>
+
         <div class="section-header table-header-flex">
           <div class="section-title-wrap">
             <span class="section-kicker">RELAÇÃO DE CONFIRMAÇÕES</span>
-            <h2 class="section-title">Convidados Confirmados (${confirmacoes.length})</h2>
+            <h2 class="section-title">Convidados Confirmados (${totalConfirmados})</h2>
           </div>
           <div class="table-actions no-print">
+            <button id="btn-exportar-csv" class="btn-secondary btn-sm" title="Baixar lista em formato CSV para Excel">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                <polyline points="7 10 12 15 17 10"></polyline>
+                <line x1="12" y1="15" x2="12" y2="3"></line>
+              </svg>
+              <span>Baixar Planilha (CSV)</span>
+            </button>
             <button id="btn-imprimir-relatorio" class="btn-secondary btn-sm" title="Imprimir lista ou salvar como PDF">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <polyline points="6 9 6 2 18 2 18 9"></polyline>
@@ -584,6 +612,32 @@ export class PainelNoivaView {
             </table>
           </div>
         `}
+
+        <!-- Resumo Consolidado Exclusivo para Mídia de Impressão (@media print) -->
+        <div class="print-summary">
+          <div class="print-summary-title">Resumo das Confirmações</div>
+          <div class="print-summary-grid">
+            <div class="print-summary-item">
+              <span class="print-summary-label">Total de Convidados Confirmados:</span>
+              <strong class="print-summary-val">${totalConfirmados}</strong>
+            </div>
+            <div class="print-summary-item">
+              <span class="print-summary-label">Presentes Físicos Reservados:</span>
+              <strong class="print-summary-val">${totalPresentesFisicos}</strong>
+            </div>
+            <div class="print-summary-item">
+              <span class="print-summary-label">Contribuições via PIX / Surpresa:</span>
+              <strong class="print-summary-val">${totalPix}</strong>
+            </div>
+            <div class="print-summary-item">
+              <span class="print-summary-label">Apenas Confirmação de Presença:</span>
+              <strong class="print-summary-val">${totalApenasPresenca}</strong>
+            </div>
+          </div>
+          <div class="print-footer-note">
+            Este documento foi emitido a partir do Painel Administrativo do Chá de Cozinha.
+          </div>
+        </div>
       </section>
     `;
   }

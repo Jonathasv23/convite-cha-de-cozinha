@@ -3,24 +3,21 @@
 **Sistema:** Convite Digital e Lista de Presentes para Chá de Cozinha  
 **Identidade Visual:** *Botanical Heritage Atelier*  
 **Noivos:** Hevelyn & Jonathas  
-**Última Atualização:** 20/09/2026 - Conclusão da Fase 5 (Módulo do Painel Administrativo da Noiva)  
+**Última Atualização:** 20/09/2026 - Conclusão da Fase 6 (Relatórios, Exportações CSV/Impressão e Acabamentos Finais)  
 
 ---
 
 ## 1. Estado Atual do Projeto
 
-O módulo administrativo completo foi implementado e testado com 100% de sucesso na **Fase 5**:
-- **Gate de Acesso por PIN Mestre:** Tela de bloqueio estilizada em alta papelaria com solicitação do PIN Mestre (`2026`), proteção contra força bruta (bloqueio temporário de 5 minutos após 5 tentativas incorretas com contagem regressiva) e auditoria de segurança (`logSecurity`).
-- **Autenticação e Sessão Segura:** Sessão volátil salva em `sessionStorage` (expira ao fechar a aba) e autenticação silenciosa no Firebase Auth (`signInWithEmailAndPassword`) vinculada às regras declarativas do Firestore.
-- **Dashboard de Métricas em Tempo Real (RN-08):** 3 cartões elegantes com números proeminentes em *EB Garamond* e rótulos em *Manrope* (Total de Confirmados, Presentes Escolhidos e Itens Ainda Disponíveis).
-- **Gestão Operacional de Prazos e Parâmetros:** Formulário com seletor `datetime-local` para prorrogar/antecipar o prazo limite de RSVP, alteração da chave PIX e edição da mensagem de boas-vindas com persistência dinâmica (`ConfiguracaoModel.salvarConfiguracoes()`).
-- **Cadastro Rápido de Novos Presentes:** Inclusão instantânea de novos itens com nome e quantidade inicial, recalculando imediatamente os contadores e disponibilizando o item no convite.
-- **Tabela de Convidados Confirmados e Estorno Atômico (RN-07):** Listagem com badges refinados de modalidade, data/hora da confirmação e botão "Liberar Item", acionando modal de confirmação, devolvendo `+1` unidade ao estoque e preservando a presença histórica do convidado como `apenas_presenca`.
-- **Estilização Refinada (`assets/css/admin.css`):** 100% alinhada aos tokens do `docs/DESIGN.md` (*Botanical Heritage Atelier*), com suporte *mobile-first* (360px a 1120px) e acabamento tátil de papelaria fina.
-- **Compatibilidade Universal:** `admin.html` estruturado com suporte modular ES6 e bundle autônomo `assets/js/admin.bundle.js` para funcionamento tanto em servidores estáticos/GitHub Pages quanto em duplo clique local (`file:///`).
-- **Testes Automatizados:** Todos os 38 testes automatizados (21 da Fase 3 + 9 da Fase 4 + 8 da Fase 5) foram aprovados com 100% de êxito (`npm test`).
+Os recursos de relatórios, exportações de dados e refinamentos de acabamento foram implementados e testados com 100% de sucesso na **Fase 6**:
+- **Utilitário de Exportação CSV (`app/utils/export.js`):** Compilação dinâmica da relação completa de confirmações de convidados em formato CSV, delimitado por ponto e vírgula (`;`) para abertura nativa no Microsoft Excel em língua portuguesa, com cabeçalho UTF-8 BOM (`\uFEFF`) prevenindo corrupção de caracteres acentuados, sanitização estrita contra quebras de formatação (RFC 4180) e download automático de `lista_convidados_cha_[DATA].csv`.
+- **Folha Especializada para Mídia de Impressão (`assets/css/print.css`):** Formatação limpa em alta diagramação com `@media print` e `@page { margin: 1.5cm; size: A4 portrait; }`, ocultando botões operacionais, menus, contadores interativos, formulários e gate de PIN. Exibe cabeçalho oficial (`.print-header`) com nomes dos noivos e data de emissão, tabela clássica com `page-break-inside: avoid` e resumo final impresso (`.print-summary`) com contagens de presenças, presentes físicos, PIX e presença exclusiva.
+- **Integração na Interface Administrativa (`app/views/PainelNoivaView.js` e `app/controllers/AdminController.js`):** Inclusão dos botões "Baixar Planilha (CSV)" e "Imprimir / PDF" na seção de ações da tabela de convidados, com feedbacks elegantes via toast (`ToastView`) e tratamento amigável de lista vazia.
+- **Compatibilidade Universal Mantida (`assets/js/admin.bundle.js`):** Script autossuficiente atualizado com suporte total à geração de CSV e elementos de impressão para funcionamento perfeito em duplo clique local (`file:///`).
+- **Refinamentos Visuais e Acabamentos Táteis (`assets/css/admin.css` e `assets/css/main.css`):** Estados de foco acessíveis (`:focus-visible`), microtransições táteis de clique (`:active`), proporção ergonômica em botões secundários (`.btn-sm`) e flexibilidade responsiva em telas de 360px a 1120px.
+- **Testes Automatizados:** Todos os 46 testes automatizados (21 da Fase 3 + 9 da Fase 4 + 8 da Fase 5 + 8 da Fase 6) foram aprovados com 100% de êxito (`npm test`).
 
-O projeto encontra-se pronto para a implementação da **Fase 6 - Relatórios, Exportações (CSV e Impressão/PDF) e Acabamentos Finais**.
+O projeto encontra-se pronto para a implementação da **Fase 7 - Homologação, Testes Completos de Aceitação e Preparação para Deploy**.
 
 ---
 
@@ -33,7 +30,7 @@ O projeto encontra-se pronto para a implementação da **Fase 6 - Relatórios, E
 | **Fase 3** | Camada de Modelos (MVC) e Módulos Utilitários | **Concluída** |
 | **Fase 4** | Módulo do Convite Digital Público (Visão do Convidado) | **Concluída** |
 | **Fase 5** | Módulo do Painel Administrativo da Noiva | **Concluída** |
-| **Fase 6** | Relatórios, Exportações (CSV e Impressão/PDF) e Acabamentos Finais | *Pendente* |
+| **Fase 6** | Relatórios, Exportações (CSV e Impressão/PDF) e Acabamentos Finais | **Concluída** |
 | **Fase 7** | Homologação, Testes Completos de Aceitação e Preparação para Deploy | *Pendente* |
 
 ---
@@ -91,10 +88,13 @@ O projeto encontra-se pronto para a implementação da **Fase 6 - Relatórios, E
 - [x] Suíte de testes automatizados com 8 asserções cobrindo PIN, força bruta, métricas, novo presente e estorno atômico (`node tests/fase5_tests.js`).
 
 ### Fase 6 - Relatórios, Exportações (CSV e Impressão/PDF) e Acabamentos Finais
-- [ ] Implementação de `app/utils/export.js` (geração e download de CSV com UTF-8 BOM).
-- [ ] Implementação de `assets/css/print.css` especializada para impressão sem elementos operacionais.
-- [ ] Integração dos botões de exportação e impressão no painel administrativo.
-- [ ] Refinamentos de transições táteis, elevação de cartões e responsividade.
+- [x] Implementação de `app/utils/export.js` (geração e download de CSV delimitado por `;` com UTF-8 BOM e sanitização RFC 4180).
+- [x] Implementação completa de `assets/css/print.css` especializada para impressão sem elementos operacionais, com `@page` e diagramação nobre.
+- [x] Integração dos botões "Imprimir / Salvar em PDF" e "Baixar Planilha (CSV)" em `app/views/PainelNoivaView.js` e `app/controllers/AdminController.js`.
+- [x] Cabeçalho oficial de impressão (`.print-header`) e resumo consolidado impresso (`.print-summary`).
+- [x] Refinamentos visuais em `assets/css/admin.css` e `assets/css/main.css` (acessibilidade `:focus-visible`, microtransições táteis `:active` e proporção ergonômica).
+- [x] Atualização de compatibilidade universal em `assets/js/admin.bundle.js` para suporte a exportação em duplo clique (`file:///`).
+- [x] Suíte de testes automatizados da Fase 6 com 8 asserções cobrindo CSV, BOM, pontuação, impressão e classes CSS (`node tests/fase6_tests.js`).
 
 ### Fase 7 - Homologação, Testes Completos de Aceitação e Preparação para Deploy
 - [ ] Teste em dispositivos móveis (360px a 430px) e computadores.
@@ -112,11 +112,10 @@ O projeto encontra-se pronto para a implementação da **Fase 6 - Relatórios, E
 
 ## 4. Fase Atual
 
-- **Fase 5 - Módulo do Painel Administrativo da Noiva** (Concluída com Sucesso).
+- **Fase 6 - Relatórios, Exportações (CSV e Impressão/PDF) e Acabamentos Finais** (Concluída com Sucesso).
 
 ---
 
 ## 5. Próximo Passo Recomendado
 
-- **Iniciar a Fase 6:** Relatórios, Exportações (CSV e Impressão/PDF) e Acabamentos Finais (`app/utils/export.js`, `assets/css/print.css`, refinamentos táteis).
-
+- **Iniciar a Fase 7:** Homologação, Testes Completos de Aceitação e Preparação para Deploy (homologação dos 14 critérios de aceitação do FSD Seção 26, testes finais de responsividade e preparação para publicação no GitHub Pages).

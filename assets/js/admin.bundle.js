@@ -139,6 +139,80 @@
     } catch (e) {
       return '';
     }
+  function traduzirTipoEscolha(tipoEscolha) {
+    switch (tipoEscolha) {
+      case 'presente_item': return 'Presente Físico';
+      case 'pix_surpresa': return 'PIX / Presente Surpresa';
+      case 'apenas_presenca': return 'Apenas Presença';
+      default: return 'Não Especificado';
+    }
+  }
+
+  function formatarDataHoraCsv(dataVal) {
+    if (!dataVal) return '-';
+    try {
+      const d = (dataVal instanceof Date) ? dataVal : new Date(dataVal);
+      if (isNaN(d.getTime())) return String(dataVal);
+      const dia = String(d.getDate()).padStart(2, '0');
+      const mes = String(d.getMonth() + 1).padStart(2, '0');
+      const ano = d.getFullYear();
+      const hora = String(d.getHours()).padStart(2, '0');
+      const min = String(d.getMinutes()).padStart(2, '0');
+      const seg = String(d.getSeconds()).padStart(2, '0');
+      return `${dia}/${mes}/${ano} ${hora}:${min}:${seg}`;
+    } catch (e) {
+      return String(dataVal);
+    }
+  }
+
+  function sanitizarCampoCsv(valor) {
+    if (valor === null || valor === undefined) return '';
+    const str = String(valor).trim();
+    if (str.includes(';') || str.includes('"') || str.includes('\n') || str.includes('\r')) {
+      return `"${str.replace(/"/g, '""')}"`;
+    }
+    return str;
+  }
+
+  function exportarConfirmacoesParaCsv(confirmacoes = []) {
+    const BOM = '\uFEFF';
+    const cabecalhos = ['Nome do Convidado', 'Tipo de Confirmação', 'Presente Escolhido', 'Data e Hora da Confirmação'];
+    const linhas = [cabecalhos.map(sanitizarCampoCsv).join(';')];
+
+    for (const c of confirmacoes) {
+      const nome = c.nome_convidado || 'Não Informado';
+      const tipo = traduzirTipoEscolha(c.tipo_escolha);
+      let presente = '-';
+      if (c.tipo_escolha === 'presente_item') presente = c.nome_presente_snapshot || 'Presente Físico';
+      else if (c.tipo_escolha === 'pix_surpresa') presente = 'Contribuição via PIX';
+      else if (c.tipo_escolha === 'apenas_presenca') presente = 'Apenas Presença';
+      if (c.liberado_em && c.tipo_escolha === 'apenas_presenca' && c.nome_presente_snapshot) {
+        presente = `Apenas Presença (Item Liberado: ${c.nome_presente_snapshot})`;
+      }
+      const dataHora = formatarDataHoraCsv(c.criado_em);
+      linhas.push([sanitizarCampoCsv(nome), sanitizarCampoCsv(tipo), sanitizarCampoCsv(presente), sanitizarCampoCsv(dataHora)].join(';'));
+    }
+
+    const conteudoCsv = BOM + linhas.join('\r\n');
+    const dataIso = new Date().toISOString().split('T')[0];
+    const nomeFinal = `lista_convidados_cha_${dataIso}.csv`;
+
+    if (typeof window !== 'undefined' && typeof document !== 'undefined' && typeof Blob !== 'undefined') {
+      const blob = new Blob([conteudoCsv], { type: 'text/csv;charset=utf-8;' });
+      const link = document.createElement('a');
+      if (link.download !== undefined) {
+        const url = URL.createObjectURL(blob);
+        link.setAttribute('href', url);
+        link.setAttribute('download', nomeFinal);
+        link.style.visibility = 'hidden';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        URL.revokeObjectURL(url);
+      }
+    }
+
+    return { sucesso: true, nomeArquivo: nomeFinal, totalRegistros: confirmacoes.length };
   }
 
   // Toast simples autônomo
@@ -574,15 +648,37 @@
       const elTabela = document.getElementById('guest-table-container');
       if (elTabela) {
         const sortedConfs = [...confs].sort((a, b) => new Date(b.criado_em).getTime() - new Date(a.criado_em).getTime());
+        const totalConfirmados = sortedConfs.length;
+        const totalPresentesFisicos = sortedConfs.filter(c => c.tipo_escolha === 'presente_item').length;
+        const totalPix = sortedConfs.filter(c => c.tipo_escolha === 'pix_surpresa').length;
+        const totalApenasPresenca = sortedConfs.filter(c => c.tipo_escolha === 'apenas_presenca').length;
+        const dataEmissao = formatarDataHoraPtBr(new Date());
+
         elTabela.innerHTML = `
           <section class="admin-card-section">
+            <!-- Cabeçalho Exclusivo para Mídia de Impressão (@media print) -->
+            <div class="print-header">
+              <div class="print-header-top">
+                <h1 class="print-title">Chá de Cozinha &bull; ${escaparHtml(config.evento.noivos)}</h1>
+                <p class="print-subtitle">Relatório Consolidado de Confirmação de Presença e Lista de Presentes</p>
+              </div>
+              <div class="print-meta">
+                <span><strong>Data de Emissão:</strong> ${dataEmissao}</span>
+                <span><strong>Total de Registros:</strong> ${totalConfirmados}</span>
+              </div>
+            </div>
+
             <div class="section-header table-header-flex">
               <div class="section-title-wrap">
                 <span class="section-kicker">RELAÇÃO DE CONFIRMAÇÕES</span>
-                <h2 class="section-title">Convidados Confirmados (${sortedConfs.length})</h2>
+                <h2 class="section-title">Convidados Confirmados (${totalConfirmados})</h2>
               </div>
               <div class="table-actions no-print">
-                <button id="btn-imprimir-relatorio" class="btn-secondary btn-sm">
+                <button id="btn-exportar-csv" class="btn-secondary btn-sm" title="Baixar lista em formato CSV para Excel">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                  <span>Baixar Planilha (CSV)</span>
+                </button>
+                <button id="btn-imprimir-relatorio" class="btn-secondary btn-sm" title="Imprimir lista ou salvar como PDF">
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 6 2 18 2 18 9"></polyline><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path><rect x="6" y="14" width="12" height="8"></rect></svg>
                   <span>Imprimir / PDF</span>
                 </button>
@@ -653,6 +749,32 @@
                 </table>
               </div>
             `}
+
+            <!-- Resumo Consolidado Exclusivo para Mídia de Impressão (@media print) -->
+            <div class="print-summary">
+              <div class="print-summary-title">Resumo das Confirmações</div>
+              <div class="print-summary-grid">
+                <div class="print-summary-item">
+                  <span class="print-summary-label">Total de Convidados Confirmados:</span>
+                  <strong class="print-summary-val">${totalConfirmados}</strong>
+                </div>
+                <div class="print-summary-item">
+                  <span class="print-summary-label">Presentes Físicos Reservados:</span>
+                  <strong class="print-summary-val">${totalPresentesFisicos}</strong>
+                </div>
+                <div class="print-summary-item">
+                  <span class="print-summary-label">Contribuições via PIX / Surpresa:</span>
+                  <strong class="print-summary-val">${totalPix}</strong>
+                </div>
+                <div class="print-summary-item">
+                  <span class="print-summary-label">Apenas Confirmação de Presença:</span>
+                  <strong class="print-summary-val">${totalApenasPresenca}</strong>
+                </div>
+              </div>
+              <div class="print-footer-note">
+                Este documento foi emitido a partir do Painel Administrativo do Chá de Cozinha.
+              </div>
+            </div>
           </section>
         `;
       }
@@ -740,9 +862,28 @@
         };
       });
 
+      const btnExportarCsv = document.getElementById('btn-exportar-csv');
+      if (btnExportarCsv) {
+        btnExportarCsv.onclick = () => this.exportarCsv();
+      }
+
       const btnImprimir = document.getElementById('btn-imprimir-relatorio');
       if (btnImprimir) {
         btnImprimir.onclick = () => window.print();
+      }
+    }
+
+    exportarCsv() {
+      const confs = getDemoStore(STORAGE_DEMO_CONF, []);
+      if (!confs || confs.length === 0) {
+        Toast.aviso('Ainda não há convidados confirmados para exportar.');
+        return;
+      }
+      try {
+        const res = exportarConfirmacoesParaCsv(confs);
+        Toast.sucesso(`Planilha CSV "${res.nomeArquivo}" gerada com sucesso!`);
+      } catch (e) {
+        Toast.erro('Não foi possível gerar a planilha CSV.');
       }
     }
 

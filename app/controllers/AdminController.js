@@ -27,6 +27,7 @@ import { ConfirmacaoModel } from '../models/ConfirmacaoModel.js';
 import { PainelNoivaView } from '../views/PainelNoivaView.js';
 import { ToastView } from '../views/ToastView.js';
 import { logError, logSecurity } from '../utils/logger.js';
+import { exportarConfirmacoesParaCsv } from '../utils/export.js';
 
 const STORAGE_AUTH_KEY = '_admin_auth_session';
 const STORAGE_LOCKOUT_KEY = '_admin_pin_lockout';
@@ -433,7 +434,8 @@ export class AdminController {
   _renderizarTabelaConvidados(confirmacoes) {
     const elTabela = document.getElementById('guest-table-container');
     if (elTabela) {
-      elTabela.innerHTML = PainelNoivaView.templateTabelaConvidados(confirmacoes);
+      const noivos = config.evento?.nomesNoivos || 'Hevelyn & Jonathas';
+      elTabela.innerHTML = PainelNoivaView.templateTabelaConvidados(confirmacoes, { noivos });
     }
   }
 
@@ -490,7 +492,13 @@ export class AdminController {
       };
     });
 
-    // 6. Botão de Impressão / PDF
+    // 6. Botão de Exportação CSV / Planilha Excel (FSD 6.2.6, 22.2)
+    const btnExportarCsv = document.getElementById('btn-exportar-csv');
+    if (btnExportarCsv) {
+      btnExportarCsv.onclick = () => this.exportarCsv();
+    }
+
+    // 7. Botão de Impressão / PDF
     const btnImprimir = document.getElementById('btn-imprimir-relatorio');
     if (btnImprimir) {
       btnImprimir.onclick = () => {
@@ -498,6 +506,25 @@ export class AdminController {
           window.print();
         }
       };
+    }
+  }
+
+  /**
+   * Exporta a relação de confirmações em planilha CSV com formatação UTF-8 BOM e delimitador ponto e vírgula (FSD 22.2).
+   */
+  exportarCsv() {
+    try {
+      const confirmacoes = this._dadosAtuais.confirmacoes || [];
+      if (confirmacoes.length === 0) {
+        ToastView.exibirAviso('Ainda não há convidados confirmados para exportar.');
+        return;
+      }
+
+      const resultado = exportarConfirmacoesParaCsv(confirmacoes);
+      ToastView.exibirSucesso(`Planilha CSV "${resultado.nomeArquivo}" gerada com sucesso!`);
+    } catch (err) {
+      logError('AdminController.exportarCsv', err);
+      ToastView.exibirErro('Não foi possível gerar a planilha CSV. Tente novamente.');
     }
   }
 
