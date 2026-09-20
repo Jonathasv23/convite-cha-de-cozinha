@@ -12,42 +12,95 @@
   <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
   <!-- Folhas de Estilo -->
+  <link rel="stylesheet" href="assets/css/variables.css">
+  <link rel="stylesheet" href="assets/css/reset.css">
   <link rel="stylesheet" href="assets/css/admin.css">
   <link rel="stylesheet" href="assets/css/print.css" media="print">
 </head>
 <body>
-  <!-- Gate de Acesso por PIN Mestre (Será implementado na Fase 5) -->
+  <!-- Gate de Acesso por PIN Mestre (Protegido por Força Bruta) -->
   <div id="pin-gate-overlay" class="admin-pin-overlay">
     <div class="pin-gate-card">
-      <h1 class="pin-gate-title">Área Restrita da Noiva</h1>
-      <p class="pin-gate-subtitle">Insira o PIN Mestre para acessar a gestão do evento.</p>
-      <div class="pin-gate-form">
-        <input type="password" id="pin-input" class="pin-input" maxlength="8" placeholder="Digite o PIN" autocomplete="off" disabled>
-        <button type="button" id="btn-entrar-pin" class="btn-primary" disabled>Acessar Painel</button>
+      <div class="pin-gate-badge">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75">
+          <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+          <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+        </svg>
       </div>
-      <p class="pin-status-message">Infraestrutura inicial pronta. Controle administrativo ativo a partir da Fase 5.</p>
+      <span class="pin-gate-tag">ÁREA RESTRITA</span>
+      <h1 class="pin-gate-title">Painel da Noiva</h1>
+      <p class="pin-gate-subtitle">Insira o PIN Mestre para acessar a gestão do Chá de Cozinha.</p>
+      
+      <form id="form-pin-gate" class="pin-gate-form" onsubmit="return false;">
+        <div class="pin-input-wrap">
+          <input
+            type="password"
+            id="pin-input"
+            class="pin-input"
+            inputmode="numeric"
+            maxlength="8"
+            placeholder="Digite o PIN"
+            autocomplete="current-password"
+            autofocus
+            required
+          >
+        </div>
+        <button type="submit" id="btn-entrar-pin" class="btn-primary btn-pin">
+          <span>Acessar Painel</span>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="9 18 15 12 9 6"></polyline>
+          </svg>
+        </button>
+      </form>
+
+      <div id="pin-feedback" class="pin-status-message">
+        Acesso seguro e exclusivo à lista do evento.
+      </div>
     </div>
   </div>
 
   <!-- Painel Administrativo Principal (Oculto até validação de PIN) -->
   <div id="admin-app" class="admin-container" style="display: none;">
-    <header class="admin-header">
-      <h2 class="admin-title">Gestão do Chá de Cozinha</h2>
-      <div class="admin-header-actions no-print">
-        <button id="btn-logout" class="btn-secondary">Sair / Bloquear</button>
-      </div>
-    </header>
+    <!-- Barra Superior -->
+    <header class="admin-header"></header>
 
+    <!-- Conteúdo Principal -->
     <main class="admin-main">
+      <!-- 1. Dashboard de Métricas -->
       <div id="dashboard-metrics" class="dashboard-metrics"></div>
+
+      <!-- 2. Configurações Dinâmicas (Prazo, PIX, Mensagem) -->
+      <div id="secao-configuracoes-wrap"></div>
+
+      <!-- 3. Cadastro Rápido de Novos Presentes -->
+      <div id="secao-novo-presente-wrap"></div>
+
+      <!-- 4. Tabela de Convidados Confirmados -->
       <div id="guest-table-container" class="guest-table-container"></div>
     </main>
+
+    <!-- Rodapé Administrativo Discreto -->
+    <footer class="admin-footer no-print" style="margin-top: 3rem; text-align: center; font-size: 0.8125rem; color: var(--color-text-muted);">
+      <p>Gestão do Chá de Cozinha &bull; Botanical Heritage Atelier &bull; Sessão Volátil Segura</p>
+    </footer>
   </div>
 
-  <!-- Container de Notificações Toast -->
-  <div id="admin-toast-container" class="toast-container" aria-live="polite"></div>
+  <!-- Container Global de Notificações Toast -->
+  <div id="admin-toast-container" class="toast-container" aria-live="polite" aria-atomic="true"></div>
 
-  <!-- Script Principal de Configuração -->
-  <script type="module" src="config/config.js"></script>
+  <!-- Controlador Modular ES6 (Padrão MVC para Servidores Estáticos e GitHub Pages) -->
+  <script type="module">
+    try {
+      const { AdminController } = await import('./app/controllers/AdminController.js');
+      window.__adminIniciado = true;
+      const controller = new AdminController();
+      controller.inicializar();
+    } catch (e) {
+      console.warn('Módulo ES6 administrativo não suportado diretamente neste protocolo. Utilizando carregamento autossuficiente.');
+    }
+  </script>
+
+  <!-- Script Autossuficiente de Compatibilidade (Garante funcionamento perfeito mesmo em duplo clique file:///) -->
+  <script src="assets/js/admin.bundle.js" defer></script>
 </body>
 </html>

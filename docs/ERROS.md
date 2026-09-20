@@ -46,7 +46,17 @@ Sempre que um erro for solucionado, adicione um novo registro no final deste doc
 - Solução aplicada: 
   1. Alterou-se a inicialização no `ConviteController.js` para checar `document.readyState !== 'loading'`.
   2. Implementou-se em `assets/js/app.bundle.js` um carregamento autossuficiente e universal que assume graciosamente a inicialização caso os módulos ES6 sejam bloqueados pelo protocolo `file:///`.
-  3. No `app/utils/firebase.js`, condicionou-se o carregamento de CDN à flag `isFirebaseConfigured()`, prevenindo requisições externas em modo demo local.
-- Como evitar no futuro: Sempre fornecer estratégia de inicialização resiliente que suporte tanto servidores locais HTTP/HTTPS (`Live Server`, `npx serve`, GitHub Pages) quanto abertura direta em `file:///`, e verificar `document.readyState` antes de registrar `DOMContentLoaded`.
+---
+
+## 20/09/2026 - Divergência de aliases em ToastView e unificação de contrato em ConfirmacaoModel
+
+- Sintoma: Na primeira execução de `node tests/fase5_tests.js`, as asserções de validação de PIN e fluxo integrado de reserva física falharam com `TypeError: ToastView.exibirAviso is not a function` e retorno `undefined` para `rsvp.nomeConvidado`.
+- Causa: 
+  1. A classe `ToastView` expunha os métodos utilitários abreviados (`ToastView.aviso`, `ToastView.erro`, `ToastView.sucesso`, `ToastView.info`), enquanto o `AdminController` invocava as assinaturas expandidas (`exibirAviso`, `exibirErro`, etc.).
+  2. Ao submeter confirmação com presente físico, `ConfirmacaoModel.confirmarPresenca` delegava diretamente o retorno a `PresenteModel.reservarPresenteAtomicamente`, que retornava metadados do item sem replicar os campos `nomeConvidado` e `tipoEscolha` presentes nas demais modalidades.
+- Solução aplicada: 
+  1. Adicionaram-se aliases estáticos semânticos (`exibirSucesso`, `exibirErro`, `exibirAviso`, `exibirInfo` e `inicializar`) em `ToastView.js` para garantir compatibilidade plena em qualquer padrão de chamada.
+  2. Ajustou-se `ConfirmacaoModel.confirmarPresenca` para encapsular a resposta da reserva atômica mesclando `{ ...resultadoReserva, nomeConvidado, tipoEscolha }`, unificando a estrutura do objeto retornado em todas as 3 modalidades.
+- Como evitar no futuro: Padronizar interfaces de componentes com aliases semânticos e garantir contratos de retorno estritamente simétricos entre diferentes ramos de execução condicional em models de domínio.
 
 

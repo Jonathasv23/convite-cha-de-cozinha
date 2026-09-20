@@ -3,27 +3,24 @@
 **Sistema:** Convite Digital e Lista de Presentes para Chá de Cozinha  
 **Identidade Visual:** *Botanical Heritage Atelier*  
 **Noivos:** Hevelyn & Jonathas  
-**Última Atualização:** 20/09/2026 - Conclusão da Fase 4 (Módulo do Convite Digital Público - Visão do Convidado)  
+**Última Atualização:** 20/09/2026 - Conclusão da Fase 5 (Módulo do Painel Administrativo da Noiva)  
 
 ---
 
 ## 1. Estado Atual do Projeto
 
-A camada visual e de orquestração do convite público (`index.html`) foi implementada e testada com 100% de sucesso na **Fase 4**, com refinamentos estéticos de alta papelaria aplicados:
-- **Identidade e Nomes Oficiais:** Casal definido como **Hevelyn & Jonathas**.
-- **Data, Horário e Local Nobres:** Novo layout `.event-details-card` em estilo papelaria fina com divisor central botânico e florão floral decorativo.
-- **Paleta de Cores em Português Puro:** Nomes e descrições em português (*Verde Oliva*, *Verde Sálvia*, *Dourado Champanhe*, *Marfim Natural*, *Linho Suave*) sem códigos `#hex` textuais e sem termos em inglês.
-- **Confirmação de Presença Limpa:** Cabeçalho atualizado exclusivamente para `"SUA PRESENÇA"`, sem a sigla `"RSVP"`.
-- `app/views/ToastView.js`: Componente singleton para feedback visual instantâneo (sucesso, aviso, erro, cópia) com estética de papelaria fina e sanitização contra XSS.
-- `app/views/ConviteView.js`: Renderização do Hero Card com monograma botânico refinado em SVG ("H & J"), nomes dos noivos em *EB Garamond Display*, data/local nobres, contagem regressiva viva calculada a cada segundo, ações logísticas (Google Maps e menu de calendário para Google Agenda e download de `.ics` via RFC 5545) e vitrine da paleta de cores sugerida.
-- `app/views/FormularioRSVPView.js`: Formulário integrado de confirmação com suporte a presentes físicos (apenas itens com estoque > 0 são listados, sem expor a quantidade disponível ao convidado), opção de contribuição via PIX e confirmação exclusiva de presença; checagem amigável de homônimos em tempo real (RN-05); feedback comemorativo nominal e caixa de chave PIX com botão de cópia instantânea integrado à Clipboard API; e bloqueio gracioso por prazo expirado (RN-06).
-- `app/controllers/ConviteController.js`: Orquestrador MVC da visão pública, integrando os dados dinâmicos do Firestore/fallback, temporizador do countdown, tratamento de envio e recuperação graciosa de concorrência (`ESGOTADO`).
-- `assets/css/main.css`: Estilização completa e refinada seguindo rigorosamente os tokens de `assets/css/variables.css` (*Botanical Heritage Atelier*), com sombras táteis, pseudo-bordas de papelaria e total responsividade *mobile-first* (360px a 1120px).
-- `assets/js/app.bundle.js`: Sincronizado integralmente para suporte autônomo ao protocolo local `file:///`.
-- `index.html`: Marcação semântica HTML5 acessível com integração modular ES6 e fallback universal.
-- Todos os 30 testes automatizados (21 da Fase 3 + 9 da Fase 4) foram aprovados com 100% de êxito (`npm test`).
+O módulo administrativo completo foi implementado e testado com 100% de sucesso na **Fase 5**:
+- **Gate de Acesso por PIN Mestre:** Tela de bloqueio estilizada em alta papelaria com solicitação do PIN Mestre (`2026`), proteção contra força bruta (bloqueio temporário de 5 minutos após 5 tentativas incorretas com contagem regressiva) e auditoria de segurança (`logSecurity`).
+- **Autenticação e Sessão Segura:** Sessão volátil salva em `sessionStorage` (expira ao fechar a aba) e autenticação silenciosa no Firebase Auth (`signInWithEmailAndPassword`) vinculada às regras declarativas do Firestore.
+- **Dashboard de Métricas em Tempo Real (RN-08):** 3 cartões elegantes com números proeminentes em *EB Garamond* e rótulos em *Manrope* (Total de Confirmados, Presentes Escolhidos e Itens Ainda Disponíveis).
+- **Gestão Operacional de Prazos e Parâmetros:** Formulário com seletor `datetime-local` para prorrogar/antecipar o prazo limite de RSVP, alteração da chave PIX e edição da mensagem de boas-vindas com persistência dinâmica (`ConfiguracaoModel.salvarConfiguracoes()`).
+- **Cadastro Rápido de Novos Presentes:** Inclusão instantânea de novos itens com nome e quantidade inicial, recalculando imediatamente os contadores e disponibilizando o item no convite.
+- **Tabela de Convidados Confirmados e Estorno Atômico (RN-07):** Listagem com badges refinados de modalidade, data/hora da confirmação e botão "Liberar Item", acionando modal de confirmação, devolvendo `+1` unidade ao estoque e preservando a presença histórica do convidado como `apenas_presenca`.
+- **Estilização Refinada (`assets/css/admin.css`):** 100% alinhada aos tokens do `docs/DESIGN.md` (*Botanical Heritage Atelier*), com suporte *mobile-first* (360px a 1120px) e acabamento tátil de papelaria fina.
+- **Compatibilidade Universal:** `admin.html` estruturado com suporte modular ES6 e bundle autônomo `assets/js/admin.bundle.js` para funcionamento tanto em servidores estáticos/GitHub Pages quanto em duplo clique local (`file:///`).
+- **Testes Automatizados:** Todos os 38 testes automatizados (21 da Fase 3 + 9 da Fase 4 + 8 da Fase 5) foram aprovados com 100% de êxito (`npm test`).
 
-O projeto encontra-se pronto para a implementação da **Fase 5 - Módulo do Painel Administrativo da Noiva**.
+O projeto encontra-se pronto para a implementação da **Fase 6 - Relatórios, Exportações (CSV e Impressão/PDF) e Acabamentos Finais**.
 
 ---
 
@@ -35,7 +32,7 @@ O projeto encontra-se pronto para a implementação da **Fase 5 - Módulo do Pai
 | **Fase 2** | Banco de Dados, Persistência, Regras de Segurança e Migrações | **Concluída** |
 | **Fase 3** | Camada de Modelos (MVC) e Módulos Utilitários | **Concluída** |
 | **Fase 4** | Módulo do Convite Digital Público (Visão do Convidado) | **Concluída** |
-| **Fase 5** | Módulo do Painel Administrativo da Noiva | *Pendente* |
+| **Fase 5** | Módulo do Painel Administrativo da Noiva | **Concluída** |
 | **Fase 6** | Relatórios, Exportações (CSV e Impressão/PDF) e Acabamentos Finais | *Pendente* |
 | **Fase 7** | Homologação, Testes Completos de Aceitação e Preparação para Deploy | *Pendente* |
 
@@ -85,12 +82,13 @@ O projeto encontra-se pronto para a implementação da **Fase 5 - Módulo do Pai
 - [x] Suite de testes automatizados com 9 asserções cobrindo views, templates, contagem, sanitização e concorrência (`node tests/fase4_tests.js`).
 
 ### Fase 5 - Módulo do Painel Administrativo da Noiva
-- [ ] Gate de autenticação por PIN Mestre com proteção contra força bruta e sessão em `sessionStorage`.
-- [ ] Autenticação administrativa silenciosa no Firebase Auth.
-- [ ] Implementação de `app/views/PainelNoivaView.js` (dashboard, contadores, formulário de prazos, cadastro de itens e tabela).
-- [ ] Implementação de `app/controllers/AdminController.js` (orquestração do painel, estorno atômico de presentes e salvamento).
-- [ ] Estilização completa do painel em `assets/css/admin.css`.
-- [ ] Integração final em `admin.html`.
+- [x] Gate de autenticação por PIN Mestre com proteção contra força bruta e sessão em `sessionStorage`.
+- [x] Autenticação administrativa silenciosa no Firebase Auth (`signInWithEmailAndPassword`).
+- [x] Implementação de `app/views/PainelNoivaView.js` (dashboard, contadores, formulário de prazos, cadastro de itens e tabela).
+- [x] Implementação de `app/controllers/AdminController.js` (orquestração do painel, estorno atômico de presentes e salvamento).
+- [x] Estilização completa do painel em `assets/css/admin.css` (*Botanical Heritage Atelier*).
+- [x] Integração final em `admin.html` com suporte a ES6 Modules e fallback universal `admin.bundle.js`.
+- [x] Suíte de testes automatizados com 8 asserções cobrindo PIN, força bruta, métricas, novo presente e estorno atômico (`node tests/fase5_tests.js`).
 
 ### Fase 6 - Relatórios, Exportações (CSV e Impressão/PDF) e Acabamentos Finais
 - [ ] Implementação de `app/utils/export.js` (geração e download de CSV com UTF-8 BOM).
@@ -114,11 +112,11 @@ O projeto encontra-se pronto para a implementação da **Fase 5 - Módulo do Pai
 
 ## 4. Fase Atual
 
-- **Fase 4 - Módulo do Convite Digital Público (Visão do Convidado)** (Concluída com Sucesso).
+- **Fase 5 - Módulo do Painel Administrativo da Noiva** (Concluída com Sucesso).
 
 ---
 
 ## 5. Próximo Passo Recomendado
 
-- **Iniciar a Fase 5:** Construir o Módulo do Painel Administrativo da Noiva (`admin.html`, `app/views/PainelNoivaView.js`, `app/controllers/AdminController.js` e `assets/css/admin.css`).
+- **Iniciar a Fase 6:** Relatórios, Exportações (CSV e Impressão/PDF) e Acabamentos Finais (`app/utils/export.js`, `assets/css/print.css`, refinamentos táteis).
 

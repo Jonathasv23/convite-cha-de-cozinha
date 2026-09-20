@@ -156,11 +156,17 @@ export class ConfirmacaoModel {
         throw new Error('Por favor, selecione um presente da lista.');
       }
 
-      return await PresenteModel.reservarPresenteAtomicamente(presenteId, {
+      const resultadoReserva = await PresenteModel.reservarPresenteAtomicamente(presenteId, {
         nomeConvidado: nomeHigienizado,
         nomeNormalizado: nomeNorm,
         nomePresenteSnapshot
       });
+
+      return {
+        ...resultadoReserva,
+        nomeConvidado: nomeHigienizado,
+        tipoEscolha
+      };
     }
 
     // 3. Para PIX ou Apenas Presença, grava diretamente

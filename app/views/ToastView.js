@@ -109,6 +109,29 @@ export class ToastView {
     return this.exibir(mensagem, 'info', duracaoMs);
   }
 
+  // Aliases semânticos para compatibilidade total entre controladores
+  static exibirSucesso(mensagem, duracaoMs) {
+    return this.sucesso(mensagem, duracaoMs);
+  }
+
+  static exibirErro(mensagem, duracaoMs) {
+    return this.erro(mensagem, duracaoMs);
+  }
+
+  static exibirAviso(mensagem, duracaoMs) {
+    return this.aviso(mensagem, duracaoMs);
+  }
+
+  static exibirInfo(mensagem, duracaoMs) {
+    return this.info(mensagem, duracaoMs);
+  }
+
+  static inicializar(container) {
+    if (container && container.id) {
+      this.containerId = container.id;
+    }
+  }
+
   /**
    * Retorna os grafismos SVGs refinados para cada estado.
    * @param {string} tipo
