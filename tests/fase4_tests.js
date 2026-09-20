@@ -155,8 +155,9 @@ test('4. FormularioRSVPView: Renderização do formulário ativo e itens de pres
   assert.ok(container.innerHTML.includes('input-nome-convidado'), 'Deve conter campo de nome');
   assert.ok(container.innerHTML.includes('check-apenas-presenca'), 'Deve conter checkbox para apenas presença');
   assert.ok(container.innerHTML.includes('Presentear com PIX / Presente surpresa'), 'Deve conter opção destacada de PIX');
-  assert.ok(container.innerHTML.includes('Faqueiro Inox &bull; (2 disponíveis)'), 'Deve conter item do inventário formatado');
-  console.log('  [PASSOU] Formulário RSVP renderiza campos obrigatórios e itens disponíveis');
+  assert.ok(container.innerHTML.includes('Faqueiro Inox'), 'Deve conter item do inventário');
+  assert.ok(!container.innerHTML.includes('disponíveis'), 'Não deve expor quantidade disponível para o convidado');
+  console.log('  [PASSOU] Formulário de confirmação renderiza campos obrigatórios e itens sem expor estoque');
 });
 
 test('5. FormularioRSVPView: Renderização do Bloqueio por Prazo Encerrado (RN-06)', () => {

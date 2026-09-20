@@ -577,8 +577,7 @@
       }
 
       const options = presentes.map((p) => {
-        const qtd = p.quantidade_disponivel === 1 ? '1 disponível' : `${p.quantidade_disponivel} disponíveis`;
-        return `<option value="${p.id}" data-nome="${escaparHtml(p.nome)}">${escaparHtml(p.nome)} &bull; (${qtd})</option>`;
+        return `<option value="${p.id}" data-nome="${escaparHtml(p.nome)}">${escaparHtml(p.nome)}</option>`;
       }).join('');
 
       container.innerHTML = `

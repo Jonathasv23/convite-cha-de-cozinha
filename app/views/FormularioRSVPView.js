@@ -32,8 +32,7 @@ export class FormularioRSVPView {
     }
 
     const optionsPresentesHtml = presentes.map((p) => {
-      const qtdTexto = p.quantidade_disponivel === 1 ? '1 disponível' : `${p.quantidade_disponivel} disponíveis`;
-      return `<option value="${p.id}" data-nome="${this._escaparHtml(p.nome)}">${this._escaparHtml(p.nome)} &bull; (${qtdTexto})</option>`;
+      return `<option value="${p.id}" data-nome="${this._escaparHtml(p.nome)}">${this._escaparHtml(p.nome)}</option>`;
     }).join('');
 
     containerElement.innerHTML = `
@@ -144,8 +143,7 @@ export class FormularioRSVPView {
         ✨ Presentear com PIX / Presente surpresa
       </option>
       ${presentes.map((p) => {
-        const qtdTexto = p.quantidade_disponivel === 1 ? '1 disponível' : `${p.quantidade_disponivel} disponíveis`;
-        return `<option value="${p.id}" data-nome="${this._escaparHtml(p.nome)}">${this._escaparHtml(p.nome)} &bull; (${qtdTexto})</option>`;
+        return `<option value="${p.id}" data-nome="${this._escaparHtml(p.nome)}">${this._escaparHtml(p.nome)}</option>`;
       }).join('')}
     `;
 
