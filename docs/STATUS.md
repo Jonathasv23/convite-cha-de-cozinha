@@ -3,21 +3,31 @@
 **Sistema:** Convite Digital e Lista de Presentes para Chá de Cozinha  
 **Identidade Visual:** *Botanical Heritage Atelier*  
 **Noivos:** Hevelyn & Jonathas  
-**Última Atualização:** 20/09/2026 - Conclusão da Fase 6 (Relatórios, Exportações CSV/Impressão e Acabamentos Finais)  
+**Última Atualização:** 20/09/2026 - Conclusão da Fase 7 (Homologação, Testes Completos de Aceitação e Preparação para Deploy)  
 
 ---
 
 ## 1. Estado Atual do Projeto
 
-Os recursos de relatórios, exportações de dados e refinamentos de acabamento foram implementados e testados com 100% de sucesso na **Fase 6**:
-- **Utilitário de Exportação CSV (`app/utils/export.js`):** Compilação dinâmica da relação completa de confirmações de convidados em formato CSV, delimitado por ponto e vírgula (`;`) para abertura nativa no Microsoft Excel em língua portuguesa, com cabeçalho UTF-8 BOM (`\uFEFF`) prevenindo corrupção de caracteres acentuados, sanitização estrita contra quebras de formatação (RFC 4180) e download automático de `lista_convidados_cha_[DATA].csv`.
-- **Folha Especializada para Mídia de Impressão (`assets/css/print.css`):** Formatação limpa em alta diagramação com `@media print` e `@page { margin: 1.5cm; size: A4 portrait; }`, ocultando botões operacionais, menus, contadores interativos, formulários e gate de PIN. Exibe cabeçalho oficial (`.print-header`) com nomes dos noivos e data de emissão, tabela clássica com `page-break-inside: avoid` e resumo final impresso (`.print-summary`) com contagens de presenças, presentes físicos, PIX e presença exclusiva.
-- **Integração na Interface Administrativa (`app/views/PainelNoivaView.js` e `app/controllers/AdminController.js`):** Inclusão dos botões "Baixar Planilha (CSV)" e "Imprimir / PDF" na seção de ações da tabela de convidados, com feedbacks elegantes via toast (`ToastView`) e tratamento amigável de lista vazia.
-- **Compatibilidade Universal Mantida (`assets/js/admin.bundle.js`):** Script autossuficiente atualizado com suporte total à geração de CSV e elementos de impressão para funcionamento perfeito em duplo clique local (`file:///`).
-- **Refinamentos Visuais e Acabamentos Táteis (`assets/css/admin.css` e `assets/css/main.css`):** Estados de foco acessíveis (`:focus-visible`), microtransições táteis de clique (`:active`), proporção ergonômica em botões secundários (`.btn-sm`) e flexibilidade responsiva em telas de 360px a 1120px.
-- **Testes Automatizados:** Todos os 46 testes automatizados (21 da Fase 3 + 9 da Fase 4 + 8 da Fase 5 + 8 da Fase 6) foram aprovados com 100% de êxito (`npm test`).
+Todas as 7 fases do projeto foram concluídas, validadas e homologadas com 100% de sucesso. A **Fase 7 - Homologação, Testes Completos de Aceitação e Preparação para Deploy** atendeu integralmente a todos os critérios de engenharia e conformidade:
 
-O projeto encontra-se pronto para a implementação da **Fase 7 - Homologação, Testes Completos de Aceitação e Preparação para Deploy**.
+- **Homologação dos 14 Critérios de Aceitação da Seção 26 do FSD (`tests/fase7_tests.js`):**
+  1. *Aderência ao Design System:* Cores (*Heritage Olive*, *Warm Sage*, *Champagne Gold*, *Ivory Parchment*), fontes (*EB Garamond* e *Manrope*) e sombras de papelaria validadas em `variables.css`, `index.html` e `admin.html`.
+  2. *Arquitetura MVC Client-Side:* Desacoplamento estrito entre Models, Views, Controllers e Utils, sem chamadas diretas de persistência nas Views.
+  3. *Responsividade Mobile-First:* Telas de 360px a 430px (smartphones), tablets (768px a 1024px) e desktop (>= 1024px) com layouts fluidos e áreas de toque acessíveis.
+  4. *Baixa e Reversão Atômica:* Transação atômica via `runTransaction`, decremento unitário, remoção de itens esgotados e estorno de volta ao inventário público.
+  5. *Fluxo Alternativo de PIX:* Modalidade `pix_surpresa` sem impacto no estoque físico, exibição da chave e botão de cópia na área de transferência com feedback visual momentâneo.
+  6. *Opção "Apenas Confirmar Presença":* Desabilitação e limpeza dinâmica do dropdown e gravação de presença com `presente_id: null`.
+  7. *Alerta Amigável de Homônimo (RN-05):* Consulta pontual via `getDoc()` na coleção indexada `nomes_confirmados`, exibindo aviso orientativo sem bloquear a submissão e em conformidade total com a LGPD.
+  8. *Bloqueio por Data Limite (RN-06):* Detecção exata de expiração, ocultação do formulário ativo e exibição de aviso sereno.
+  9. *Painel Administrativo Protegido:* Gate com PIN Mestre (`0523`), proteção contra força bruta (bloqueio de 5 minutos após 5 erros) e sessão volátil segura em `sessionStorage`.
+  10. *Segurança e LGPD:* Regras declarativas em `database/firestore.rules` bloqueando expressamente a leitura de convidados por acessos anônimos (`allow read: if request.auth != null;`).
+  11. *Exportações Funcionais:* Download de planilha CSV em UTF-8 BOM (`\uFEFF`) delimitada por `;` (compatível com Excel PT-BR) e folha de impressão limpa (`@media print` com `@page`).
+  12. *Deploy Exclusivo no GitHub Pages:* Estrutura estática pura servida na raiz do repositório, sem dependência de servidores centralizados, sem XAMPP, sem Hostnet e com caminhos estritamente relativos.
+  13. *Configuração em Código Sem `.env`:* Parâmetros do evento e credenciais públicas do Firebase encapsulados em `config/config.js` com mecanismos de fallback dinâmico.
+  14. *Migrations Versionadas:* Inicialização e semente com controle estrito de idempotência através da coleção `_migrations` do Firestore.
+- **Bateria de Testes Automatizados Completa:** Todos os **61 testes automatizados** (21 da Fase 3 + 9 da Fase 4 + 8 da Fase 5 + 8 da Fase 6 + 15 da Fase 7) foram executados e aprovados com 100% de êxito (`npm test`).
+- **Documentação de Produção Atualizada:** `README.md` totalmente enriquecido com instruções passo a passo para execução local, configuração detalhada no Firebase e deploy automático no GitHub Pages.
 
 ---
 
@@ -31,7 +41,7 @@ O projeto encontra-se pronto para a implementação da **Fase 7 - Homologação,
 | **Fase 4** | Módulo do Convite Digital Público (Visão do Convidado) | **Concluída** |
 | **Fase 5** | Módulo do Painel Administrativo da Noiva | **Concluída** |
 | **Fase 6** | Relatórios, Exportações (CSV e Impressão/PDF) e Acabamentos Finais | **Concluída** |
-| **Fase 7** | Homologação, Testes Completos de Aceitação e Preparação para Deploy | *Pendente* |
+| **Fase 7** | Homologação, Testes Completos de Aceitação e Preparação para Deploy | **Concluída** |
 
 ---
 
@@ -97,25 +107,26 @@ O projeto encontra-se pronto para a implementação da **Fase 7 - Homologação,
 - [x] Suíte de testes automatizados da Fase 6 com 8 asserções cobrindo CSV, BOM, pontuação, impressão e classes CSS (`node tests/fase6_tests.js`).
 
 ### Fase 7 - Homologação, Testes Completos de Aceitação e Preparação para Deploy
-- [ ] Teste em dispositivos móveis (360px a 430px) e computadores.
-- [ ] Teste de reserva concorrente e atomicidade no Firestore.
-- [ ] Teste do fluxo alternativo de PIX e cópia no clipboard.
-- [ ] Teste da opção "Apenas confirmar presença".
-- [ ] Teste da validação amigável de homônimos (RN-05).
-- [ ] Teste do bloqueio por data limite expirada (RN-06).
-- [ ] Teste de proteção de dados e conformidade com LGPD nas regras do Firestore.
-- [ ] Teste de impressão e exportação CSV no Excel.
-- [ ] Homologação de todos os 14 critérios de aceitação da Seção 26 do `docs/FSD.md`.
-- [ ] Finalização do `README.md` e preparação do repositório para deploy no GitHub Pages.
+- [x] Teste em dispositivos móveis (360px a 430px) e computadores.
+- [x] Teste de reserva concorrente e atomicidade no Firestore.
+- [x] Teste do fluxo alternativo de PIX e cópia no clipboard.
+- [x] Teste da opção "Apenas confirmar presença".
+- [x] Teste da validação amigável de homônimos (RN-05).
+- [x] Teste do bloqueio por data limite expirada (RN-06).
+- [x] Teste de proteção de dados e conformidade com LGPD nas regras do Firestore.
+- [x] Teste de impressão e exportação CSV no Excel.
+- [x] Homologação de todos os 14 critérios de aceitação da Seção 26 do `docs/FSD.md`.
+- [x] Finalização do `README.md` e preparação do repositório para deploy no GitHub Pages.
+- [x] Suíte de testes automatizados da Fase 7 com 15 asserções cobrindo a homologação completa (`node tests/fase7_tests.js`).
 
 ---
 
 ## 4. Fase Atual
 
-- **Fase 6 - Relatórios, Exportações (CSV e Impressão/PDF) e Acabamentos Finais** (Concluída com Sucesso).
+- **Fase 7 - Homologação, Testes Completos de Aceitação e Preparação para Deploy** (Concluída com 100% de Êxito).
 
 ---
 
 ## 5. Próximo Passo Recomendado
 
-- **Iniciar a Fase 7:** Homologação, Testes Completos de Aceitação e Preparação para Deploy (homologação dos 14 critérios de aceitação do FSD Seção 26, testes finais de responsividade e preparação para publicação no GitHub Pages).
+Todas as fases de codificação previstas no `docs/PLANO.md` foram integralmente concluídas. A aplicação está pronta para o passo de validação de segurança final ou publicação no GitHub Pages.

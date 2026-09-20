@@ -73,5 +73,11 @@ Sempre que um erro for solucionado, adicione um novo registro no final deste doc
   3. Atualizou-se o PIN Mestre padrão do sistema de `2026` para `0523` em `config/config.js`, `config/config.example.js`, `app/controllers/AdminController.js`, `assets/js/admin.bundle.js` e na suíte de testes.
 - Como evitar no futuro: Sempre executar a verificação estática de sintaxe (`node -c <arquivo>`) após edições em bundles ou scripts compilados e testar a abertura em protocolo `file:///` além do Live Server.
 
+---
 
+## 20/09/2026 - Interface de MockElement em testes de Views isomórficas na Fase 7
 
+- Sintoma: Na primeira execução de `node tests/fase7_tests.js`, os testes dos Critérios 5 e 6 falharam com `TypeError: containerElement.querySelector is not a function`.
+- Causa: Os métodos de renderização de telas de sucesso (`FormularioRSVPView.renderizarSucesso`) esperavam um nó do DOM capaz de vincular manipuladores de evento de clique em botões internos (`querySelector('#btn-copiar-pix')`). O teste inicial passou um objeto literal raso `{ innerHTML: '' }` desprovido de suporte aos seletores da API DOM.
+- Solução aplicada: Reutilizou-se a classe `MockElement` (já validada na Fase 4) com implementação dummy de `querySelector`, `querySelectorAll`, `addEventListener` e `classList`, permitindo a execução pura e desacoplada em ambiente headless Node.js sem necessidade de bibliotecas de emulação pesadas como JSDOM.
+- Como evitar no futuro: Padronizar o mock de nós do DOM em suites de teste Node.js sempre instanciando `MockElement` unificado em vez de objetos literais rasos.

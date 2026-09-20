@@ -6,11 +6,12 @@
   "scripts": {
     "migrate": "node database/migrations/run.js",
     "migrate:dry": "node database/migrations/run.js --dry-run",
-    "test": "node tests/fase3_tests.js && node tests/fase4_tests.js && node tests/fase5_tests.js && node tests/fase6_tests.js",
+    "test": "node tests/fase3_tests.js && node tests/fase4_tests.js && node tests/fase5_tests.js && node tests/fase6_tests.js && node tests/fase7_tests.js",
     "test:fase3": "node tests/fase3_tests.js",
     "test:fase4": "node tests/fase4_tests.js",
     "test:fase5": "node tests/fase5_tests.js",
-    "test:fase6": "node tests/fase6_tests.js"
+    "test:fase6": "node tests/fase6_tests.js",
+    "test:fase7": "node tests/fase7_tests.js"
   },
   "private": true
 }

@@ -250,25 +250,28 @@ Fase 7 - Homologação, Testes Completos de Aceitação e Preparação para Depl
   Executar a bateria completa de validações funcionais, de concorrência, responsividade mobile-first e conformidade com a LGPD contra os critérios de aceitação da Seção 26 do `docs/FSD.md`, finalizando a documentação para deploy estático no GitHub Pages.
 
 - **Checklist de Tarefas:**
-  - [ ] Teste de responsividade mobile-first emulando dispositivos de 360px a 430px (smartphones), 768px a 1024px (tablets) e telas desktop.
-  - [ ] Teste da concorrência na reserva de presentes (transação atômica e prevenção de estoque negativo).
-  - [ ] Teste da opção "Apenas confirmar presença" e do fluxo de contribuição via PIX (cópia no clipboard).
-  - [ ] Teste do aviso de homônimo amigável sem bloqueio de envio.
-  - [ ] Teste do bloqueio automático por data limite expirada.
-  - [ ] Teste do gate de PIN, bloqueio de força bruta e encerramento de sessão administrativa.
-  - [ ] Teste de estorno de presente e devolução automática ao catálogo público.
-  - [ ] Teste de segurança: verificação de que chamadas diretas de leitura à coleção `confirmacoes` sem autenticação são bloqueadas pelo Firestore.
-  - [ ] Atualização final de `README.md` com instruções detalhadas de publicação no GitHub Pages e configuração do console do Firebase.
-  - [ ] Atualização de encerramento em `docs/STATUS.md`.
+  - [x] Teste de responsividade mobile-first emulando dispositivos de 360px a 430px (smartphones), 768px a 1024px (tablets) e telas desktop.
+  - [x] Teste da concorrência na reserva de presentes (transação atômica e prevenção de estoque negativo).
+  - [x] Teste da opção "Apenas confirmar presença" e do fluxo de contribuição via PIX (cópia no clipboard).
+  - [x] Teste do aviso de homônimo amigável sem bloqueio de envio.
+  - [x] Teste do bloqueio automático por data limite expirada.
+  - [x] Teste do gate de PIN, bloqueio de força bruta e encerramento de sessão administrativa.
+  - [x] Teste de estorno de presente e devolução automática ao catálogo público.
+  - [x] Teste de segurança: verificação de que chamadas diretas de leitura à coleção `confirmacoes` sem autenticação são bloqueadas pelo Firestore.
+  - [x] Atualização final de `README.md` com instruções detalhadas de publicação no GitHub Pages e configuração do console do Firebase.
+  - [x] Atualização de encerramento em `docs/STATUS.md`.
 
 - **Critérios de Pronto:**
   - Todos os 14 critérios de aceitação da Seção 26 do `docs/FSD.md` cumpridos com 100% de êxito.
   - Repositório pronto para publicação direta no GitHub Pages.
 
 - **Arquivos e Pastas Alterados/Criados:**
+  - `tests/fase7_tests.js`
+  - `package.json`
   - `README.md`
+  - `docs/PLANO.md`
   - `docs/STATUS.md`
   - `docs/ERROS.md`
 
 - **Observações de Dependência:**
-  - Depende da conclusão de todas as fases anteriores (Fases 1 a 6).
+  - Todas as 7 fases do projeto concluídas com sucesso.
