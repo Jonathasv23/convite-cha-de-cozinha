@@ -6,7 +6,9 @@
   "scripts": {
     "migrate": "node database/migrations/run.js",
     "migrate:dry": "node database/migrations/run.js --dry-run",
-    "test": "node tests/fase3_tests.js"
+    "test": "node tests/fase3_tests.js && node tests/fase4_tests.js",
+    "test:fase3": "node tests/fase3_tests.js",
+    "test:fase4": "node tests/fase4_tests.js"
   },
   "private": true
 }

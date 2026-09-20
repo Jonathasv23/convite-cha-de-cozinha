@@ -3,44 +3,60 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Convite Digital e Lista de Presentes para o Chá de Cozinha de Helena & Gabriel. Confirme sua presença e escolha seu presente.">
-  <title>Chá de Cozinha - Helena & Gabriel | Convite Oficial</title>
+  <meta name="description" content="Convite Oficial e Lista de Presentes para o Chá de Cozinha de Hevelyn &amp; Jonathas. Confirme sua presença e celebre conosco!">
+  <meta name="theme-color" content="#3D4A36">
+  <title>Chá de Cozinha - Hevelyn &amp; Jonathas | Convite Oficial</title>
 
-  <!-- Google Fonts: EB Garamond & Manrope -->
+  <!-- Google Fonts: EB Garamond (Display/Headlines) & Manrope (UI/Body) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
-  <!-- Estilos da Aplicação -->
+  <!-- Folha de Estilos Oficial (Botanical Heritage Atelier) -->
   <link rel="stylesheet" href="assets/css/main.css">
 </head>
 <body>
   <div id="app" class="app-container">
-    <!-- Estrutura base da visão pública do convite (Será preenchida na Fase 4) -->
+    <!-- Bloco 1: Hero Card com Monograma, Boas-Vindas e Logística -->
     <header id="hero-section" class="hero-section" aria-label="Apresentação do Evento">
-      <div class="hero-card">
-        <span class="eyebrow-tag">Chá de Cozinha</span>
-        <h1 class="couple-title">Helena & Gabriel</h1>
-        <p class="hero-message">Aguarde, estamos preparando todos os detalhes com muito carinho...</p>
+      <div class="hero-card paper-texture">
+        <div class="hero-card__inner-border">
+          <span class="eyebrow-tag">CHÁ DE COZINHA</span>
+          <h1 class="couple-title">Hevelyn &amp; Jonathas</h1>
+          <p class="hero-message">Carregando convite especial...</p>
+        </div>
       </div>
     </header>
 
+    <!-- Bloco 2: Contagem Regressiva Viva (Countdown Timer) -->
+    <div id="countdown-section-wrapper" class="countdown-wrapper" aria-label="Tempo restante"></div>
+
+    <!-- Bloco 3: Vitrine da Paleta de Cores Sugerida -->
+    <div id="palette-section-wrapper" class="palette-wrapper" aria-label="Paleta de Cores"></div>
+
+    <!-- Bloco 4: Conteúdo Principal e Formulário Integrado de RSVP -->
     <main id="main-content" class="main-content">
-      <!-- Seção de Contagem Regressiva, Logística, Paleta e Formulário RSVP -->
       <section id="rsvp-section" class="rsvp-section" aria-label="Confirmação de Presença">
-        <p class="placeholder-text">Sistema em preparação (Fase 1 de Infraestrutura concluída).</p>
+        <div class="rsvp-card-wrapper paper-texture">
+          <div class="rsvp-card__inner-border">
+            <p class="placeholder-text" style="text-align: center; color: var(--color-text-muted);">
+              Carregando lista de presentes e confirmação...
+            </p>
+          </div>
+        </div>
       </section>
     </main>
 
+    <!-- Rodapé Institucional -->
     <footer id="footer-section" class="footer-section">
-      <p class="footer-credit">Botanical Heritage Atelier &bull; 2026</p>
+      <p class="footer-credit">Chá de Cozinha de Hevelyn &amp; Jonathas &bull; Botanical Heritage Atelier</p>
     </footer>
   </div>
 
-  <!-- Container de Notificações Toast -->
-  <div id="toast-container" class="toast-container" aria-live="polite"></div>
+  <!-- Container Global de Notificações Toast -->
+  <div id="toast-container" class="toast-container" aria-live="polite" aria-atomic="true"></div>
 
-  <!-- Script Principal (Módulo ES6) -->
-  <script type="module" src="config/config.js"></script>
+  <!-- Controlador Principal da Aplicação (Módulo ES6) -->
+  <script type="module" src="app/controllers/ConviteController.js"></script>
 </body>
 </html>

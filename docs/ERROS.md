@@ -28,3 +28,13 @@ Sempre que um erro for solucionado, adicione um novo registro no final deste doc
 - Solução aplicada: Centralizou-se o gerenciamento de armazenamento local na abstração `demoStore` em `app/utils/firebase.js`, mantendo um mapa em memória (`inMemoryStorage`) sincronizado automaticamente com `localStorage` quando o objeto `window` estiver presente e preservando o estado em memória quando em ambiente Node.js. Ajustou-se a palavra de teste para `'Oi'` (2 caracteres).
 - Como evitar no futuro: Sempre utilizar abstrações de armazenamento isomórficas (`demoStore`) que funcionem de forma idêntica tanto em navegadores quanto em ambientes headless/CLI para testes automatizados.
 
+---
+
+## 20/09/2026 - Acesso a document global em métodos de View durante testes automatizados Node.js
+
+- Sintoma: Na execução inicial de `node tests/fase4_tests.js`, os testes de cálculo de contagem regressiva e renderização de Hero Card lançavam `ReferenceError: document is not defined`.
+- Causa: Os métodos `ConviteView.atualizarContagem` e `ConviteView._vincularEventosAgenda` tentavam acessar diretamente o objeto global `document` sem verificar se a execução ocorria em ambiente de navegador ou em ambiente CLI/Node.js.
+- Solução aplicada: Adicionou-se a guarda `if (typeof document !== 'undefined')` antes de consultar ou manipular elementos do DOM no `ConviteView.js`, garantindo que o cálculo de tempo e a renderização de strings HTML permaneçam isomórficos e funcionem perfeitamente tanto no browser quanto nos testes de terminal.
+- Como evitar no futuro: Em classes de View ou utilitários que geram HTML e calculam dados, sempre condicionar interações diretas com o DOM à verificação de `typeof document !== 'undefined'`.
+
+

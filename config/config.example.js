@@ -9,8 +9,8 @@
 export const config = {
   // Dados Estruturais do Evento
   evento: {
-    noivos: 'Helena & Gabriel',
-    titulo: 'Chá de Cozinha de Helena & Gabriel',
+    noivos: 'Hevelyn & Jonathas',
+    titulo: 'Chá de Cozinha de Hevelyn & Jonathas',
     subtitulo: 'Um momento de celebração e carinho para preparar o novo lar',
     dataHoraISO: '2026-10-24T16:00:00',
     dataHoraFormatada: '24 de Outubro de 2026 às 16:00',
@@ -31,7 +31,7 @@ export const config = {
   // Parâmetros Dinâmicos Padrão (utilizados como fallback caso o Firestore esteja inacessível)
   fallbackDinamicos: {
     dataLimiteConfirmacao: '2026-10-18T23:59:59',
-    chavePix: 'helena.gabriel.cha@email.com',
+    chavePix: 'hevelyn.jonathas.cha@email.com',
     mensagemBoasVindas: 'É com imensa alegria que convidamos você para compartilhar este momento tão especial conosco. Venha celebrar o amor e o início da nossa nova história!'
   },
 
